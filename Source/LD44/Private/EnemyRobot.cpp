@@ -45,7 +45,7 @@ void fun::Tick(float deltaTime)
 			params.AddIgnoredActor(this);
 			params.AddIgnoredActor(player);
 
-			if (!GetWorld()->LineTraceTestByChannel(GetActorLocation(), playerPos, ECollisionChannel::ECC_Visibility))
+			if (FVector::Dist(GetActorLocation(), playerPos) < 3000 && !GetWorld()->LineTraceTestByChannel(GetActorLocation(), playerPos, ECollisionChannel::ECC_Visibility))
 			{
 				// we can see the player
 				Attacking = true;
@@ -55,7 +55,14 @@ void fun::Tick(float deltaTime)
 					// if we're a ranged attacker, STOP when we can see them
 					if (auto ai = Cast<AAIController>(GetController()))
 					{
-						ai->StopMovement();
+						if (FVector::Dist(GetActorLocation(), playerPos) < 2000)
+						{
+							ai->StopMovement();
+						}
+						else
+						{
+							ai->MoveToActor(player);
+						}
 					}
 				}
 				else
@@ -193,6 +200,14 @@ float fun::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent
 		// TODO: Enemy explosions
 
 		Destroy();
+	}
+
+	for (TActorIterator<AEnemyRobot> i(GetWorld()); i; ++i)
+	{
+		if (FVector::Dist(i->GetActorLocation(), GetActorLocation()) < 3000)
+		{
+			i->Aggro = 10;
+		}
 	}
 
 	return DamageAmount;
