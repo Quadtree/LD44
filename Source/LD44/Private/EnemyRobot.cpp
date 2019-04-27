@@ -175,7 +175,7 @@ float fun::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent
 			FVector pt = FMath::RandPointInBox(GetComponentsBoundingBox());
 
 			FActorSpawnParameters params;
-			params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
+			params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
 			GetWorld()->SpawnActor<ASalvage>(SalvageClass, pt, FRotator::ZeroRotator, params);
 		}
