@@ -65,7 +65,7 @@ mods(bare) void fun::HighScoresReceived(TSharedPtr<class IHttpRequest> req, TSha
 
 				for (int32 i = 0; i < (int)EUpgradeType::UT_Max; ++i)
 				{
-					FString key = "u" + FString::FromInt(i);
+					FString key = "Upg" + FString::FromInt(i);
 					upgradeLevels.Add((EUpgradeType) i, jo->GetIntegerField(key));
 				}
 
