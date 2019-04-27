@@ -62,6 +62,9 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetLastCheckpointPlayerSubclass, BlueprintSetter=SetLastCheckpointPlayerSubclass)
 	TSubclassOf<ALD44Character> LastCheckpointPlayerSubclass;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetHighScoresRows, BlueprintSetter=SetHighScoresRows)
+	TArray<class UHighScoresRow*> HighScoresRows;
+
 public:
 	ALD44GameMode();
 
@@ -170,5 +173,11 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetLastCheckpointPlayerSubclass(TSubclassOf<ALD44Character> value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	TArray<class UHighScoresRow*>  GetHighScoresRows();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetHighScoresRows(TArray<class UHighScoresRow*> value);
 
 };

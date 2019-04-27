@@ -40,6 +40,8 @@ FRotator ALD44GameMode::GetLastCheckpointPlayerControlRotation(){ return LastChe
 void ALD44GameMode::SetLastCheckpointPlayerControlRotation(FRotator value){ LastCheckpointPlayerControlRotation = value; }
 TSubclassOf<ALD44Character> ALD44GameMode::GetLastCheckpointPlayerSubclass(){ return LastCheckpointPlayerSubclass; }
 void ALD44GameMode::SetLastCheckpointPlayerSubclass(TSubclassOf<ALD44Character> value){ LastCheckpointPlayerSubclass = value; }
+TArray<class UHighScoresRow*> ALD44GameMode::GetHighScoresRows(){ return HighScoresRows; }
+void ALD44GameMode::SetHighScoresRows(TArray<class UHighScoresRow*> value){ HighScoresRows = value; }
 
 #include "LD44.h"
 #include "GameFramework/GameModeBase.h"
@@ -49,6 +51,7 @@ void ALD44GameMode::SetLastCheckpointPlayerSubclass(TSubclassOf<ALD44Character> 
 #include "Public/EnemyRobot.h"
 #include "Public/UpgradeType.h"
 #include "Public/LD44Character.h"
+#include "Public/HighScoresRow.h"
 #include "Public/LD44GameMode.h"
 #include "UObject/ConstructorHelpers.h"
 #include "GameFramework/Pawn.h"
@@ -57,6 +60,8 @@ void ALD44GameMode::SetLastCheckpointPlayerSubclass(TSubclassOf<ALD44Character> 
 #include "Interfaces/IHttpRequest.h"
 #include "Interfaces/IHttpResponse.h"
 #include "Templates/SharedPointerInternals.h"
+#include "Dom/JsonObject.h"
+#include "Serialization/JsonReader.h"
 #include "EngineUtils.h"
 #include "Kismet/GameplayStatics.h"
 #include "HttpModule.h"

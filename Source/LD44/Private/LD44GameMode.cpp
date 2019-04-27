@@ -28,6 +28,8 @@ prop(FVector LastCheckpointPlayerPosition)
 prop(FRotator LastCheckpointPlayerControlRotation)
 prop(TSubclassOf<ALD44Character> LastCheckpointPlayerSubclass)
 
+prop(TArray<class UHighScoresRow*> HighScoresRows)
+
 fun::ALD44GameMode()
 {
 	// set default pawn class to our Blueprinted character
@@ -43,6 +45,9 @@ fun::ALD44GameMode()
 mods(bare) void fun::HighScoresReceived(TSharedPtr<class IHttpRequest> req, TSharedPtr<class IHttpResponse, ESPMode::ThreadSafe> resp, bool success)
 {
 	UE_LOG(LogTemp, Display, TEXT("Got HTTP response: %s"), *resp->GetContentAsString());
+
+	TSharedPtr<FJsonObject> obj;
+	TSharedRef<TJsonReader<>> reader = TJsonReaderFactory<>::Create(resp->GetContentAsString());
 }
 
 void fun::PlayerWins()
