@@ -46,8 +46,35 @@ mods(bare) void fun::HighScoresReceived(TSharedPtr<class IHttpRequest> req, TSha
 {
 	UE_LOG(LogTemp, Display, TEXT("Got HTTP response: %s"), *resp->GetContentAsString());
 
-	TSharedPtr<FJsonObject> obj;
+	TArray<TSharedPtr<FJsonValue>> obj;
 	TSharedRef<TJsonReader<>> reader = TJsonReaderFactory<>::Create(resp->GetContentAsString());
+
+	HighScoresRows.Empty();
+
+	if (FJsonSerializer::Deserialize(reader, obj))
+	{
+		for (auto a : obj)
+		{
+			if (auto jo = a->AsObject())
+			{
+				auto io = NewObject<UHighScoresRow>();
+				io->SetTime(jo->GetNumberField("TimeToFinish"));
+				io->SetIsMe(jo->GetBoolField("IsMyScore"));
+
+				TMap<EUpgradeType, int32> upgradeLevels;
+
+				for (int32 i = 0; i < (int)EUpgradeType::UT_Max; ++i)
+				{
+					FString key = "u" + FString::FromInt(i);
+					upgradeLevels.Add((EUpgradeType) i, jo->GetIntegerField(key));
+				}
+
+				io->SetUpgradeLevels(upgradeLevels);
+
+				HighScoresRows.Add(io);
+			}
+		}
+	}
 }
 
 void fun::PlayerWins()
