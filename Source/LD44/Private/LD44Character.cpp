@@ -27,6 +27,8 @@ prop(float PrimaryFireCharge)
 prop(float AltFireCharge)
 prop(float PrimaryFireShotDelay)
 prop(float AltFireShotDelay)
+prop(float PrimaryFireEnergyCost)
+prop(float AltFireEnergyCost)
 prop(float Health)
 prop(float Energy)
 
@@ -228,37 +230,45 @@ void fun::OnFire()
 		}
 	}*/
 
-	DoFire("LeftGun", ProjectileClass);
-	PrimaryFireCharge = 0;
+	if (DoFire("LeftGun", ProjectileClass, PrimaryFireEnergyCost))
+		PrimaryFireCharge = 0;
 }
 
 void fun::OnAltFire()
 {
-	DoFire("RightGun", AltProjectileClass);
-	AltFireCharge = 0;
+	if (DoFire("RightGun", AltProjectileClass, AltFireEnergyCost))
+		AltFireCharge = 0;
 }
 
-mods(private) void fun::DoFire(FString gunTag, const TSubclassOf<AActor>& projectileClassArg)
+mods(private) bool fun::DoFire(FString gunTag, const TSubclassOf<AActor>& projectileClassArg, float energyCost)
 {
-	if (projectileClassArg)
+	if (Energy >= energyCost)
 	{
-		auto comps = GetComponentsByTag(USceneComponent::StaticClass(), *gunTag);
-		if (comps.Num())
+		Energy -= energyCost;
+		if (projectileClassArg)
 		{
-			auto sc = Cast<USceneComponent>(comps[0]);
-			FVector spawnPos = sc->GetComponentLocation();
+			auto comps = GetComponentsByTag(USceneComponent::StaticClass(), *gunTag);
+			if (comps.Num())
+			{
+				auto sc = Cast<USceneComponent>(comps[0]);
+				FVector spawnPos = sc->GetComponentLocation();
 
-			GetWorld()->SpawnActor<AActor>(projectileClassArg, spawnPos, GetControlRotation());
+				GetWorld()->SpawnActor<AActor>(projectileClassArg, spawnPos, GetControlRotation());
+			}
+			else
+			{
+				UE_LOG(LogTemp, Warning, TEXT("Can't find gun with tag %s"), *gunTag);
+			}
 		}
 		else
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Can't find gun with tag %s"), *gunTag);
+			UE_LOG(LogTemp, Warning, TEXT("No projectile class!"));
 		}
+
+		return true;
 	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("No projectile class!"));
-	}
+
+	return false;
 }
 
 void fun::OnResetVR()

@@ -79,6 +79,12 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetAltFireShotDelay, BlueprintSetter=SetAltFireShotDelay)
 	float AltFireShotDelay;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetPrimaryFireEnergyCost, BlueprintSetter=SetPrimaryFireEnergyCost)
+	float PrimaryFireEnergyCost;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetAltFireEnergyCost, BlueprintSetter=SetAltFireEnergyCost)
+	float AltFireEnergyCost;
+
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetHealth, BlueprintSetter=SetHealth)
 	float Health;
 
@@ -86,7 +92,7 @@ private:
 	float Energy;
 
 	UFUNCTION()
-	void DoFire(FString gunTag, const TSubclassOf<AActor>& projectileClassArg);
+	bool DoFire(FString gunTag, const TSubclassOf<AActor>& projectileClassArg, float energyCost);
 
 public:
 	ALD44Character();
@@ -255,6 +261,18 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetAltFireShotDelay(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetPrimaryFireEnergyCost();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetPrimaryFireEnergyCost(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetAltFireEnergyCost();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetAltFireEnergyCost(float value);
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	float GetHealth();
