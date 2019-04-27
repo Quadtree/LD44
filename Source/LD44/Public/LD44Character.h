@@ -91,8 +91,62 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetEnergy, BlueprintSetter=SetEnergy)
 	float Energy;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetUpgradeLevelPrimaryFire, BlueprintSetter=SetUpgradeLevelPrimaryFire)
+	int32 UpgradeLevelPrimaryFire;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetUpgradeLevelAltFire, BlueprintSetter=SetUpgradeLevelAltFire)
+	int32 UpgradeLevelAltFire;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetUpgradeLevelEnergyRegeneration, BlueprintSetter=SetUpgradeLevelEnergyRegeneration)
+	int32 UpgradeLevelEnergyRegeneration;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetUpgradeLevelArmor, BlueprintSetter=SetUpgradeLevelArmor)
+	int32 UpgradeLevelArmor;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetUpgradeLevelJumping, BlueprintSetter=SetUpgradeLevelJumping)
+	int32 UpgradeLevelJumping;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetUpgradeLevelMovementSpeed, BlueprintSetter=SetUpgradeLevelMovementSpeed)
+	int32 UpgradeLevelMovementSpeed;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetPrimaryFireBaseDamage, BlueprintSetter=SetPrimaryFireBaseDamage)
+	float PrimaryFireBaseDamage;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetPrimaryFireUpgradeDamage, BlueprintSetter=SetPrimaryFireUpgradeDamage)
+	float PrimaryFireUpgradeDamage;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetAltFireBaseDamage, BlueprintSetter=SetAltFireBaseDamage)
+	float AltFireBaseDamage;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetAltFireUpgradeDamage, BlueprintSetter=SetAltFireUpgradeDamage)
+	float AltFireUpgradeDamage;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetEnergyRegenerationBase, BlueprintSetter=SetEnergyRegenerationBase)
+	float EnergyRegenerationBase;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetEnergyRegenerationUpgrade, BlueprintSetter=SetEnergyRegenerationUpgrade)
+	float EnergyRegenerationUpgrade;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetArmorUpgradeAmount, BlueprintSetter=SetArmorUpgradeAmount)
+	float ArmorUpgradeAmount;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetJumpingBase, BlueprintSetter=SetJumpingBase)
+	float JumpingBase;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetJumpingUpgrade, BlueprintSetter=SetJumpingUpgrade)
+	float JumpingUpgrade;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetMovementSpeedBase, BlueprintSetter=SetMovementSpeedBase)
+	float MovementSpeedBase;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetMovementSpeedUpgrade, BlueprintSetter=SetMovementSpeedUpgrade)
+	float MovementSpeedUpgrade;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetUpgradeCost, BlueprintSetter=SetUpgradeCost)
+	float UpgradeCost;
+
 	UFUNCTION()
-	bool DoFire(FString gunTag, const TSubclassOf<AActor>& projectileClassArg, float energyCost);
+	bool DoFire(FString gunTag, const TSubclassOf<AActor>& projectileClassArg, float energyCost, float damage);
 
 public:
 	ALD44Character();
@@ -101,6 +155,24 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent);
+
+	UFUNCTION(BlueprintCallable)
+	void UpgradePrimaryFire();
+
+	UFUNCTION(BlueprintCallable)
+	void UpgradeAltFire();
+
+	UFUNCTION(BlueprintCallable)
+	void UpgradeEnergyRegeneration();
+
+	UFUNCTION(BlueprintCallable)
+	void UpgradeArmor();
+
+	UFUNCTION(BlueprintCallable)
+	void UpgradeJumping();
+
+	UFUNCTION(BlueprintCallable)
+	void UpgradeMovementSpeed();
 
 	UFUNCTION(BlueprintCallable)
 	void PrimaryFireAxis(float axisValue);
@@ -285,5 +357,113 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetEnergy(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	int32 GetUpgradeLevelPrimaryFire();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetUpgradeLevelPrimaryFire(int32 value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	int32 GetUpgradeLevelAltFire();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetUpgradeLevelAltFire(int32 value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	int32 GetUpgradeLevelEnergyRegeneration();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetUpgradeLevelEnergyRegeneration(int32 value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	int32 GetUpgradeLevelArmor();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetUpgradeLevelArmor(int32 value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	int32 GetUpgradeLevelJumping();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetUpgradeLevelJumping(int32 value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	int32 GetUpgradeLevelMovementSpeed();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetUpgradeLevelMovementSpeed(int32 value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetPrimaryFireBaseDamage();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetPrimaryFireBaseDamage(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetPrimaryFireUpgradeDamage();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetPrimaryFireUpgradeDamage(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetAltFireBaseDamage();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetAltFireBaseDamage(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetAltFireUpgradeDamage();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetAltFireUpgradeDamage(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetEnergyRegenerationBase();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetEnergyRegenerationBase(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetEnergyRegenerationUpgrade();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetEnergyRegenerationUpgrade(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetArmorUpgradeAmount();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetArmorUpgradeAmount(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetJumpingBase();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetJumpingBase(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetJumpingUpgrade();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetJumpingUpgrade(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetMovementSpeedBase();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetMovementSpeedBase(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetMovementSpeedUpgrade();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetMovementSpeedUpgrade(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetUpgradeCost();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetUpgradeCost(float value);
 
 };

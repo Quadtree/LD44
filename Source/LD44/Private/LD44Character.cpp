@@ -32,6 +32,31 @@ prop(float AltFireEnergyCost)
 prop(float Health)
 prop(float Energy)
 
+prop(int32 UpgradeLevelPrimaryFire)
+prop(int32 UpgradeLevelAltFire)
+prop(int32 UpgradeLevelEnergyRegeneration)
+prop(int32 UpgradeLevelArmor)
+prop(int32 UpgradeLevelJumping)
+prop(int32 UpgradeLevelMovementSpeed)
+
+prop(float PrimaryFireBaseDamage)
+prop(float PrimaryFireUpgradeDamage)
+prop(float AltFireBaseDamage)
+prop(float AltFireUpgradeDamage)
+
+prop(float EnergyRegenerationBase)
+prop(float EnergyRegenerationUpgrade)
+
+prop(float ArmorUpgradeAmount)
+
+prop(float JumpingBase)
+prop(float JumpingUpgrade)
+
+prop(float MovementSpeedBase)
+prop(float MovementSpeedUpgrade)
+
+prop(float UpgradeCost)
+
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
 //////////////////////////////////////////////////////////////////////////
@@ -157,6 +182,67 @@ void fun::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAxis("TurnRate", this, &ALD44Character::TurnAtRate);
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis("LookUpRate", this, &ALD44Character::LookUpAtRate);
+
+	PlayerInputComponent->BindAction("UpgradePrimaryFire", IE_Pressed, this, &fun::UpgradePrimaryFire);
+	PlayerInputComponent->BindAction("UpgradeAltFire", IE_Pressed, this, &fun::UpgradeAltFire);
+	PlayerInputComponent->BindAction("UpgradeEnergyRegeneration", IE_Pressed, this, &fun::UpgradeEnergyRegeneration);
+	PlayerInputComponent->BindAction("UpgradeArmor", IE_Pressed, this, &fun::UpgradeArmor);
+	PlayerInputComponent->BindAction("UpgradeJumping", IE_Pressed, this, &fun::UpgradeJumping);
+	PlayerInputComponent->BindAction("UpgradeMovementSpeed", IE_Pressed, this, &fun::UpgradeMovementSpeed);
+}
+
+void fun::UpgradePrimaryFire()
+{
+	if (Health >= UpgradeCost)
+	{
+		UpgradeLevelPrimaryFire++;
+		Health -= UpgradeCost;
+	}
+}
+
+void fun::UpgradeAltFire()
+{
+	if (Health >= UpgradeCost)
+	{
+		UpgradeLevelAltFire++;
+		Health -= UpgradeCost;
+	}
+}
+
+void fun::UpgradeEnergyRegeneration()
+{
+	if (Health >= UpgradeCost)
+	{
+		UpgradeLevelEnergyRegeneration++;
+		Health -= UpgradeCost;
+	}
+}
+
+void fun::UpgradeArmor()
+{
+	if (Health >= UpgradeCost)
+	{
+		UpgradeLevelArmor++;
+		Health -= UpgradeCost;
+	}
+}
+
+void fun::UpgradeJumping()
+{
+	if (Health >= UpgradeCost)
+	{
+		UpgradeLevelJumping++;
+		Health -= UpgradeCost;
+	}
+}
+
+void fun::UpgradeMovementSpeed()
+{
+	if (Health >= UpgradeCost)
+	{
+		UpgradeLevelMovementSpeed++;
+		Health -= UpgradeCost;
+	}
 }
 
 void fun::PrimaryFireAxis(float axisValue)
@@ -176,8 +262,10 @@ void fun::Tick(float deltaTime)
 	PrimaryFireCharge += deltaTime;
 	AltFireCharge += deltaTime;
 
-	Energy = FMath::Clamp(Energy + deltaTime * 25.f, 0.f, 100.f);
-	
+	Energy = FMath::Clamp(Energy + deltaTime * (EnergyRegenerationBase + EnergyRegenerationUpgrade * UpgradeLevelEnergyRegeneration), 0.f, 100.f);
+
+	GetCharacterMovement()->JumpZVelocity = JumpingBase + JumpingUpgrade * UpgradeLevelJumping;
+	GetCharacterMovement()->MaxWalkSpeed = MovementSpeedBase + MovementSpeedUpgrade * UpgradeLevelMovementSpeed;
 
 	if (IsPrimaryFiring && PrimaryFireCharge >= PrimaryFireShotDelay) OnFire();
 	if (IsAltFiring && AltFireCharge >= AltFireShotDelay) OnAltFire();
@@ -185,62 +273,17 @@ void fun::Tick(float deltaTime)
 
 void fun::OnFire()
 {
-	// try and fire a projectile
-	/*if (ProjectileClass != NULL)
-	{
-		UWorld* const World = GetWorld();
-		if (World != NULL)
-		{
-			if (bUsingMotionControllers)
-			{
-				const FRotator SpawnRotation = VR_MuzzleLocation->GetComponentRotation();
-				const FVector SpawnLocation = VR_MuzzleLocation->GetComponentLocation();
-				World->SpawnActor<ALD44Projectile>(ProjectileClass, SpawnLocation, SpawnRotation);
-			}
-			else
-			{
-				const FRotator SpawnRotation = GetControlRotation();
-				// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
-				const FVector SpawnLocation = ((FP_MuzzleLocation != nullptr) ? FP_MuzzleLocation->GetComponentLocation() : GetActorLocation()) + SpawnRotation.RotateVector(GunOffset);
-
-				//Set Spawn Collision Handling Override
-				FActorSpawnParameters ActorSpawnParams;
-				ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
-
-				// spawn the projectile at the muzzle
-				World->SpawnActor<ALD44Projectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
-			}
-		}
-	}
-
-	// try and play the sound if specified
-	if (FireSound != NULL)
-	{
-		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
-	}
-
-	// try and play a firing animation if specified
-	if (FireAnimation != NULL)
-	{
-		// Get the animation object for the arms mesh
-		UAnimInstance* AnimInstance = Mesh1P->GetAnimInstance();
-		if (AnimInstance != NULL)
-		{
-			AnimInstance->Montage_Play(FireAnimation, 1.f);
-		}
-	}*/
-
-	if (DoFire("LeftGun", ProjectileClass, PrimaryFireEnergyCost))
+	if (DoFire("LeftGun", ProjectileClass, PrimaryFireEnergyCost, PrimaryFireBaseDamage + PrimaryFireUpgradeDamage * UpgradeLevelPrimaryFire))
 		PrimaryFireCharge = 0;
 }
 
 void fun::OnAltFire()
 {
-	if (DoFire("RightGun", AltProjectileClass, AltFireEnergyCost))
+	if (DoFire("RightGun", AltProjectileClass, AltFireEnergyCost, AltFireBaseDamage + AltFireUpgradeDamage * UpgradeLevelAltFire))
 		AltFireCharge = 0;
 }
 
-mods(private) bool fun::DoFire(FString gunTag, const TSubclassOf<AActor>& projectileClassArg, float energyCost)
+mods(private) bool fun::DoFire(FString gunTag, const TSubclassOf<AActor>& projectileClassArg, float energyCost, float damage)
 {
 	if (Energy >= energyCost)
 	{
@@ -324,6 +367,8 @@ bool fun::EnableTouchscreenMovement(class UInputComponent* PlayerInputComponent)
 float fun::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser)
 {
 	Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+
+	DamageAmount *= FMath::Pow(1.f - ArmorUpgradeAmount, UpgradeLevelArmor);
 
 	Health -= DamageAmount;
 

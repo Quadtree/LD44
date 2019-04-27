@@ -60,6 +60,42 @@ float ALD44Character::GetHealth(){ return Health; }
 void ALD44Character::SetHealth(float value){ Health = value; }
 float ALD44Character::GetEnergy(){ return Energy; }
 void ALD44Character::SetEnergy(float value){ Energy = value; }
+int32 ALD44Character::GetUpgradeLevelPrimaryFire(){ return UpgradeLevelPrimaryFire; }
+void ALD44Character::SetUpgradeLevelPrimaryFire(int32 value){ UpgradeLevelPrimaryFire = value; }
+int32 ALD44Character::GetUpgradeLevelAltFire(){ return UpgradeLevelAltFire; }
+void ALD44Character::SetUpgradeLevelAltFire(int32 value){ UpgradeLevelAltFire = value; }
+int32 ALD44Character::GetUpgradeLevelEnergyRegeneration(){ return UpgradeLevelEnergyRegeneration; }
+void ALD44Character::SetUpgradeLevelEnergyRegeneration(int32 value){ UpgradeLevelEnergyRegeneration = value; }
+int32 ALD44Character::GetUpgradeLevelArmor(){ return UpgradeLevelArmor; }
+void ALD44Character::SetUpgradeLevelArmor(int32 value){ UpgradeLevelArmor = value; }
+int32 ALD44Character::GetUpgradeLevelJumping(){ return UpgradeLevelJumping; }
+void ALD44Character::SetUpgradeLevelJumping(int32 value){ UpgradeLevelJumping = value; }
+int32 ALD44Character::GetUpgradeLevelMovementSpeed(){ return UpgradeLevelMovementSpeed; }
+void ALD44Character::SetUpgradeLevelMovementSpeed(int32 value){ UpgradeLevelMovementSpeed = value; }
+float ALD44Character::GetPrimaryFireBaseDamage(){ return PrimaryFireBaseDamage; }
+void ALD44Character::SetPrimaryFireBaseDamage(float value){ PrimaryFireBaseDamage = value; }
+float ALD44Character::GetPrimaryFireUpgradeDamage(){ return PrimaryFireUpgradeDamage; }
+void ALD44Character::SetPrimaryFireUpgradeDamage(float value){ PrimaryFireUpgradeDamage = value; }
+float ALD44Character::GetAltFireBaseDamage(){ return AltFireBaseDamage; }
+void ALD44Character::SetAltFireBaseDamage(float value){ AltFireBaseDamage = value; }
+float ALD44Character::GetAltFireUpgradeDamage(){ return AltFireUpgradeDamage; }
+void ALD44Character::SetAltFireUpgradeDamage(float value){ AltFireUpgradeDamage = value; }
+float ALD44Character::GetEnergyRegenerationBase(){ return EnergyRegenerationBase; }
+void ALD44Character::SetEnergyRegenerationBase(float value){ EnergyRegenerationBase = value; }
+float ALD44Character::GetEnergyRegenerationUpgrade(){ return EnergyRegenerationUpgrade; }
+void ALD44Character::SetEnergyRegenerationUpgrade(float value){ EnergyRegenerationUpgrade = value; }
+float ALD44Character::GetArmorUpgradeAmount(){ return ArmorUpgradeAmount; }
+void ALD44Character::SetArmorUpgradeAmount(float value){ ArmorUpgradeAmount = value; }
+float ALD44Character::GetJumpingBase(){ return JumpingBase; }
+void ALD44Character::SetJumpingBase(float value){ JumpingBase = value; }
+float ALD44Character::GetJumpingUpgrade(){ return JumpingUpgrade; }
+void ALD44Character::SetJumpingUpgrade(float value){ JumpingUpgrade = value; }
+float ALD44Character::GetMovementSpeedBase(){ return MovementSpeedBase; }
+void ALD44Character::SetMovementSpeedBase(float value){ MovementSpeedBase = value; }
+float ALD44Character::GetMovementSpeedUpgrade(){ return MovementSpeedUpgrade; }
+void ALD44Character::SetMovementSpeedUpgrade(float value){ MovementSpeedUpgrade = value; }
+float ALD44Character::GetUpgradeCost(){ return UpgradeCost; }
+void ALD44Character::SetUpgradeCost(float value){ UpgradeCost = value; }
 
 #include "LD44.h"
 #include "GameFramework/Character.h"
@@ -78,9 +114,6 @@ void ALD44Character::SetEnergy(float value){ Energy = value; }
 #include "Components/InputComponent.h"
 #include "GameFramework/Pawn.h"
 #include "Math/UnrealMathUtility.h"
-#include "Engine/World.h"
-#include "Kismet/GameplayStatics.h"
-#include "Animation/AnimInstance.h"
 #include "Containers/UnrealString.h"
 #include "GameFramework/Actor.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
