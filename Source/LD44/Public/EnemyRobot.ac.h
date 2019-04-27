@@ -28,11 +28,16 @@ bool AEnemyRobot::GetAttacking(){ return Attacking; }
 void AEnemyRobot::SetAttacking(bool value){ Attacking = value; }
 float AEnemyRobot::GetHealth(){ return Health; }
 void AEnemyRobot::SetHealth(float value){ Health = value; }
+TSubclassOf<ASalvage> AEnemyRobot::GetSalvageClass(){ return SalvageClass; }
+void AEnemyRobot::SetSalvageClass(TSubclassOf<ASalvage> value){ SalvageClass = value; }
+int32 AEnemyRobot::GetSalvageQuantity(){ return SalvageQuantity; }
+void AEnemyRobot::SetSalvageQuantity(int32 value){ SalvageQuantity = value; }
 
 #include "LD44.h"
 #include "GameFramework/Character.h"
 #include "Templates/SubclassOf.h"
 #include "Public/LD44Projectile.h"
+#include "Public/Salvage.h"
 #include "UObject/NoExportTypes.h"
 #include "Public/LD44Character.h"
 #include "EngineUtils.h"
@@ -43,3 +48,4 @@ void AEnemyRobot::SetHealth(float value){ Health = value; }
 #include "Engine/World.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/Actor.h"
+#include "Math/UnrealMathUtility.h"

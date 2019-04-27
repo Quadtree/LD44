@@ -35,6 +35,12 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetHealth, BlueprintSetter=SetHealth)
 	float Health;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetSalvageClass, BlueprintSetter=SetSalvageClass)
+	TSubclassOf<ASalvage> SalvageClass;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetSalvageQuantity, BlueprintSetter=SetSalvageQuantity)
+	int32 SalvageQuantity;
+
 public:
 	void Tick(float deltaTime) override;
 
@@ -93,5 +99,17 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetHealth(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	TSubclassOf<ASalvage>  GetSalvageClass();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetSalvageClass(TSubclassOf<ASalvage> value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	int32 GetSalvageQuantity();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetSalvageQuantity(int32 value);
 
 };

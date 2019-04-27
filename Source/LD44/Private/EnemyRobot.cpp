@@ -15,6 +15,9 @@ prop(bare float LineTestCharge)
 prop(bare bool Attacking)
 prop(float Health)
 
+prop(TSubclassOf<ASalvage> SalvageClass)
+prop(int32 SalvageQuantity)
+
 void fun::Tick(float deltaTime)
 {
 	Super::Tick(deltaTime);
@@ -166,9 +169,20 @@ float fun::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent
 	if (Health <= 0)
 	{
 		UE_LOG(LogTemp, Display, TEXT("Enemy %s has died"), *GetName());
-		Destroy();
+		
+		for (int32 i = 0; i < SalvageQuantity; ++i)
+		{
+			FVector pt = FMath::RandPointInBox(GetComponentsBoundingBox());
+
+			FActorSpawnParameters params;
+			params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
+
+			GetWorld()->SpawnActor<ASalvage>(SalvageClass, pt, FRotator::ZeroRotator, params);
+		}
 
 		// TODO: Enemy explosions
+
+		Destroy();
 	}
 
 	return DamageAmount;
