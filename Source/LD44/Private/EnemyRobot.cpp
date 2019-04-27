@@ -204,7 +204,7 @@ float fun::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent
 
 	for (TActorIterator<AEnemyRobot> i(GetWorld()); i; ++i)
 	{
-		if (FVector::Dist(i->GetActorLocation(), GetActorLocation()) < 3000)
+		if (FVector::Dist(i->GetActorLocation(), GetActorLocation()) < 1500)
 		{
 			i->Aggro = 10;
 		}
