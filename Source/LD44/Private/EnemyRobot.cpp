@@ -1,6 +1,8 @@
 #include "EnemyRobot.h"
 #include "EnemyRobot.ac.h"
 
+#include "DrawDebugHelpers.h"
+
 extends(ACharacter)
 
 prop(float AttackDamage)
@@ -107,7 +109,11 @@ void fun::Tick(float deltaTime)
 				FActorSpawnParameters params;
 				params.Instigator = this;
 
-				auto prj = GetWorld()->SpawnActor<ALD44Projectile>(AttackProjectile, spawnPoint, (playerPos - spawnPoint).Rotation(), params);
+				UE_LOG(LogTemp, Display, TEXT("%s"), *(playerPos - spawnPoint).Rotation().ToString());
+
+				DrawDebugLine(GetWorld(), spawnPoint, spawnPoint + ((playerPos - spawnPoint).GetSafeNormal().Rotation().RotateVector(FVector(5000, 0, 0))), FColor::Red, false, 1.f);
+
+				auto prj = GetWorld()->SpawnActor<ALD44Projectile>(AttackProjectile, spawnPoint, (playerPos - spawnPoint).GetSafeNormal().Rotation(), params);
 				if (prj)
 				{
 					prj->SetDamageOnHit(AttackDamage);
