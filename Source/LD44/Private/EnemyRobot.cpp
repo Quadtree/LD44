@@ -98,6 +98,20 @@ void fun::Tick(float deltaTime)
 			}
 		}
 
+		for (auto a : GetComponentsByTag(USceneComponent::StaticClass(), "TurretYaw"))
+		{
+			if (auto a2 = Cast<USceneComponent>(a))
+			{
+				auto rot = (playerPos - a2->GetComponentLocation()).Rotation();
+				rot.Pitch = 0;
+				rot.Roll = 0;
+				a2->SetWorldLocationAndRotation(
+					a2->GetComponentLocation(),
+					rot
+				);
+			}
+		}
+
 		if (AttackProjectile && player)
 		{
 			if (auto ai = Cast<AAIController>(GetController()))
