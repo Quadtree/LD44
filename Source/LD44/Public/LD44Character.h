@@ -215,6 +215,9 @@ public:
 
 	float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser) override;
 
+	UFUNCTION(BlueprintCallable)
+	void SetHealth(float value);
+
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	class USkeletalMeshComponent* GetMesh1P();
 
@@ -355,9 +358,6 @@ public:
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	float GetHealth();
-
-	UFUNCTION(BlueprintSetter, BlueprintCallable)
-	void SetHealth(float value);
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	float GetEnergy();

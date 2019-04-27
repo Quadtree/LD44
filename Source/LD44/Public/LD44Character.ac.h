@@ -57,7 +57,6 @@ void ALD44Character::SetPrimaryFireEnergyCost(float value){ PrimaryFireEnergyCos
 float ALD44Character::GetAltFireEnergyCost(){ return AltFireEnergyCost; }
 void ALD44Character::SetAltFireEnergyCost(float value){ AltFireEnergyCost = value; }
 float ALD44Character::GetHealth(){ return Health; }
-void ALD44Character::SetHealth(float value){ Health = value; }
 float ALD44Character::GetEnergy(){ return Energy; }
 void ALD44Character::SetEnergy(float value){ Energy = value; }
 int32 ALD44Character::GetUpgradeLevelPrimaryFire(){ return UpgradeLevelPrimaryFire; }

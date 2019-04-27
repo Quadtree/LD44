@@ -15,11 +15,14 @@ private:
 	UPROPERTY(SaveGame, VisibleAnywhere, BlueprintGetter=GetCollisionComp, BlueprintSetter=SetCollisionComp)
 	class USphereComponent* CollisionComp;
 
+	UPROPERTY(SaveGame, VisibleAnywhere, BlueprintGetter=GetMesh, BlueprintSetter=SetMesh)
+	class UStaticMeshComponent* Mesh;
+
 public:
 	ASalvage();
 
 	UFUNCTION(BlueprintCallable)
-	void OnHit(class UPrimitiveComponent* HitComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+	void OnHit(class UPrimitiveComponent* OverlappedComponent, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	float GetHealthBonus();
@@ -32,5 +35,11 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetCollisionComp(class USphereComponent* value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	class UStaticMeshComponent* GetMesh();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetMesh(class UStaticMeshComponent* value);
 
 };

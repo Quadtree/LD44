@@ -411,3 +411,8 @@ float fun::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent
 
 	return DamageAmount;
 }
+
+void fun::SetHealth(float value)
+{
+	this->Health = FMath::Clamp(value, 0.f, 200.f);
+}
