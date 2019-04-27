@@ -2,7 +2,13 @@
 
 #include "EngineMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "UObject/NoExportTypes.h"
+#include "UObject/NoExportTypes.h"
+#include "UObject/NoExportTypes.h"
+#include "UObject/NoExportTypes.h"
 #include "LD44.h"
+#include "Public/UpgradeType.h"
+#include "Engine/EngineTypes.h"
 #include "LD44GameMode.generated.h"
 
 UCLASS()
@@ -28,11 +34,32 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetPlayerHasWon, BlueprintSetter=SetPlayerHasWon)
 	bool PlayerHasWon;
 
-	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetLastCheckpointData, BlueprintSetter=SetLastCheckpointData)
-	TMap<FString, FString> LastCheckpointData;
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetLastCheckpointEnemyLocations, BlueprintSetter=SetLastCheckpointEnemyLocations)
+	TMap<FString, FVector> LastCheckpointEnemyLocations;
 
-	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetLastCheckpointActors, BlueprintSetter=SetLastCheckpointActors)
-	TArray<FString> LastCheckpointActors;
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetLastCheckpointEnemyHealth, BlueprintSetter=SetLastCheckpointEnemyHealth)
+	TMap<FString, float> LastCheckpointEnemyHealth;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetLastCheckpointEnemyType, BlueprintSetter=SetLastCheckpointEnemyType)
+	TMap<FString, TSubclassOf<AEnemyRobot>> LastCheckpointEnemyType;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetLastCheckpointPlayerUpgrades, BlueprintSetter=SetLastCheckpointPlayerUpgrades)
+	TMap<EUpgradeType, int32> LastCheckpointPlayerUpgrades;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetLastCheckpointPlayerHealth, BlueprintSetter=SetLastCheckpointPlayerHealth)
+	float LastCheckpointPlayerHealth;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetLastCheckpointPlayerEnergy, BlueprintSetter=SetLastCheckpointPlayerEnergy)
+	float LastCheckpointPlayerEnergy;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetLastCheckpointPlayerPosition, BlueprintSetter=SetLastCheckpointPlayerPosition)
+	FVector LastCheckpointPlayerPosition;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetLastCheckpointPlayerControlRotation, BlueprintSetter=SetLastCheckpointPlayerControlRotation)
+	FRotator LastCheckpointPlayerControlRotation;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetLastCheckpointPlayerSubclass, BlueprintSetter=SetLastCheckpointPlayerSubclass)
+	TSubclassOf<ALD44Character> LastCheckpointPlayerSubclass;
 
 public:
 	ALD44GameMode();
@@ -88,15 +115,57 @@ public:
 	void SetPlayerHasWon(bool value);
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
-	TMap<FString, FString> GetLastCheckpointData();
+	TMap<FString, FVector> GetLastCheckpointEnemyLocations();
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
-	void SetLastCheckpointData(TMap<FString, FString> value);
+	void SetLastCheckpointEnemyLocations(TMap<FString, FVector> value);
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
-	TArray<FString> GetLastCheckpointActors();
+	TMap<FString, float> GetLastCheckpointEnemyHealth();
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
-	void SetLastCheckpointActors(TArray<FString> value);
+	void SetLastCheckpointEnemyHealth(TMap<FString, float> value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	TMap<FString, TSubclassOf<AEnemyRobot>>  GetLastCheckpointEnemyType();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetLastCheckpointEnemyType(TMap<FString, TSubclassOf<AEnemyRobot>> value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	TMap<EUpgradeType, int32> GetLastCheckpointPlayerUpgrades();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetLastCheckpointPlayerUpgrades(TMap<EUpgradeType, int32> value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetLastCheckpointPlayerHealth();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetLastCheckpointPlayerHealth(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetLastCheckpointPlayerEnergy();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetLastCheckpointPlayerEnergy(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	FVector GetLastCheckpointPlayerPosition();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetLastCheckpointPlayerPosition(FVector value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	FRotator GetLastCheckpointPlayerControlRotation();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetLastCheckpointPlayerControlRotation(FRotator value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	TSubclassOf<ALD44Character>  GetLastCheckpointPlayerSubclass();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetLastCheckpointPlayerSubclass(TSubclassOf<ALD44Character> value);
 
 };

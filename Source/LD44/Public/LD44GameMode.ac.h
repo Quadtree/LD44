@@ -22,18 +22,39 @@ float ALD44GameMode::GetLastCheckpointTime(){ return LastCheckpointTime; }
 void ALD44GameMode::SetLastCheckpointTime(float value){ LastCheckpointTime = value; }
 bool ALD44GameMode::GetPlayerHasWon(){ return PlayerHasWon; }
 void ALD44GameMode::SetPlayerHasWon(bool value){ PlayerHasWon = value; }
-TMap<FString, FString> ALD44GameMode::GetLastCheckpointData(){ return LastCheckpointData; }
-void ALD44GameMode::SetLastCheckpointData(TMap<FString, FString> value){ LastCheckpointData = value; }
-TArray<FString> ALD44GameMode::GetLastCheckpointActors(){ return LastCheckpointActors; }
-void ALD44GameMode::SetLastCheckpointActors(TArray<FString> value){ LastCheckpointActors = value; }
+TMap<FString, FVector> ALD44GameMode::GetLastCheckpointEnemyLocations(){ return LastCheckpointEnemyLocations; }
+void ALD44GameMode::SetLastCheckpointEnemyLocations(TMap<FString, FVector> value){ LastCheckpointEnemyLocations = value; }
+TMap<FString, float> ALD44GameMode::GetLastCheckpointEnemyHealth(){ return LastCheckpointEnemyHealth; }
+void ALD44GameMode::SetLastCheckpointEnemyHealth(TMap<FString, float> value){ LastCheckpointEnemyHealth = value; }
+TMap<FString, TSubclassOf<AEnemyRobot>> ALD44GameMode::GetLastCheckpointEnemyType(){ return LastCheckpointEnemyType; }
+void ALD44GameMode::SetLastCheckpointEnemyType(TMap<FString, TSubclassOf<AEnemyRobot>> value){ LastCheckpointEnemyType = value; }
+TMap<EUpgradeType, int32> ALD44GameMode::GetLastCheckpointPlayerUpgrades(){ return LastCheckpointPlayerUpgrades; }
+void ALD44GameMode::SetLastCheckpointPlayerUpgrades(TMap<EUpgradeType, int32> value){ LastCheckpointPlayerUpgrades = value; }
+float ALD44GameMode::GetLastCheckpointPlayerHealth(){ return LastCheckpointPlayerHealth; }
+void ALD44GameMode::SetLastCheckpointPlayerHealth(float value){ LastCheckpointPlayerHealth = value; }
+float ALD44GameMode::GetLastCheckpointPlayerEnergy(){ return LastCheckpointPlayerEnergy; }
+void ALD44GameMode::SetLastCheckpointPlayerEnergy(float value){ LastCheckpointPlayerEnergy = value; }
+FVector ALD44GameMode::GetLastCheckpointPlayerPosition(){ return LastCheckpointPlayerPosition; }
+void ALD44GameMode::SetLastCheckpointPlayerPosition(FVector value){ LastCheckpointPlayerPosition = value; }
+FRotator ALD44GameMode::GetLastCheckpointPlayerControlRotation(){ return LastCheckpointPlayerControlRotation; }
+void ALD44GameMode::SetLastCheckpointPlayerControlRotation(FRotator value){ LastCheckpointPlayerControlRotation = value; }
+TSubclassOf<ALD44Character> ALD44GameMode::GetLastCheckpointPlayerSubclass(){ return LastCheckpointPlayerSubclass; }
+void ALD44GameMode::SetLastCheckpointPlayerSubclass(TSubclassOf<ALD44Character> value){ LastCheckpointPlayerSubclass = value; }
 
 #include "LD44.h"
 #include "GameFramework/GameModeBase.h"
 #include "Containers/UnrealString.h"
+#include "UObject/NoExportTypes.h"
+#include "Templates/SubclassOf.h"
+#include "Public/EnemyRobot.h"
+#include "Public/UpgradeType.h"
+#include "Public/LD44Character.h"
 #include "Public/LD44GameMode.h"
 #include "UObject/ConstructorHelpers.h"
 #include "GameFramework/Pawn.h"
 #include "Private/LD44HUD.h"
 #include "Kismet/GameplayStatics.h"
 #include "EngineUtils.h"
-#include "Public/EnemyRobot.h"
+#include "Public/LD44Projectile.h"
+#include "Engine/World.h"
+#include "Engine/EngineTypes.h"
