@@ -97,7 +97,10 @@ void fun::Tick(float deltaTime)
 					break;
 				}
 
-				auto prj = GetWorld()->SpawnActor<ALD44Projectile>(AttackProjectile, spawnPoint, GetControlRotation());
+				FActorSpawnParameters params;
+				params.Instigator = this;
+
+				auto prj = GetWorld()->SpawnActor<ALD44Projectile>(AttackProjectile, spawnPoint, GetControlRotation(), params);
 				if (prj)
 				{
 					prj->SetDamageOnHit(AttackDamage);

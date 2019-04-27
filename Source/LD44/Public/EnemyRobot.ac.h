@@ -40,5 +40,6 @@ void AEnemyRobot::SetHealth(float value){ Health = value; }
 #include "Engine/EngineTypes.h"
 #include "AIController.h"
 #include "Components/SceneComponent.h"
+#include "Engine/World.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/Actor.h"
