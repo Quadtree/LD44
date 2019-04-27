@@ -87,6 +87,17 @@ void fun::Tick(float deltaTime)
 			player = *i;
 		}
 
+		for (auto a : GetComponentsByTag(USceneComponent::StaticClass(), "Turret"))
+		{
+			if (auto a2 = Cast<USceneComponent>(a))
+			{
+				a2->SetWorldLocationAndRotation(
+					a2->GetComponentLocation(),
+					(playerPos - a2->GetComponentLocation()).Rotation()
+				);
+			}
+		}
+
 		if (AttackProjectile && player)
 		{
 			if (auto ai = Cast<AAIController>(GetController()))
@@ -111,7 +122,7 @@ void fun::Tick(float deltaTime)
 
 				UE_LOG(LogTemp, Display, TEXT("%s"), *(playerPos - spawnPoint).Rotation().ToString());
 
-				DrawDebugLine(GetWorld(), spawnPoint, spawnPoint + ((playerPos - spawnPoint).GetSafeNormal().Rotation().RotateVector(FVector(5000, 0, 0))), FColor::Red, false, 1.f);
+				DrawDebugLine(GetWorld(), spawnPoint, spawnPoint, FColor::Red, false, 1.f);
 
 				auto prj = GetWorld()->SpawnActor<ALD44Projectile>(AttackProjectile, spawnPoint, (playerPos - spawnPoint).GetSafeNormal().Rotation(), params);
 				if (prj)
