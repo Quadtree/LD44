@@ -65,9 +65,9 @@ Note that it will NOT reset the level timer, so try not to die.
 - Create boss enemy
 - Fix bug where projectiles block LOS
 - Salvage system
+- High score system
 
 ### TODO
-- High score system
 - Final graphics for player guns, projectiles, and enemies
 - Create level 1
 - Create level 2
