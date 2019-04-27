@@ -61,6 +61,12 @@ private:
 
 	uint32 bUsingMotionControllers;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetIsPrimaryFiring, BlueprintSetter=SetIsPrimaryFiring)
+	bool IsPrimaryFiring;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetIsAltFiring, BlueprintSetter=SetIsAltFiring)
+	bool IsAltFiring;
+
 	UFUNCTION()
 	void DoFire(FString gunTag, const TSubclassOf<AActor>& projectileClassArg);
 
@@ -71,6 +77,14 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent);
+
+	UFUNCTION(BlueprintCallable)
+	void PrimaryFireAxis(float axisValue);
+
+	UFUNCTION(BlueprintCallable)
+	void AltFireAxis(float axisValue);
+
+	void Tick(float deltaTime) override;
 
 	UFUNCTION(BlueprintCallable)
 	void OnFire();
@@ -185,5 +199,17 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetFireAnimation(class UAnimMontage* value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	bool GetIsPrimaryFiring();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetIsPrimaryFiring(bool value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	bool GetIsAltFiring();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetIsAltFiring(bool value);
 
 };

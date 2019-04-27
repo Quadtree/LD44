@@ -21,6 +21,8 @@ prop(TSubclassOf<class ALD44Projectile> AltProjectileClass)
 prop(USoundBase* FireSound)
 prop(UAnimMontage* FireAnimation)
 prop(bare private uint32 bUsingMotionControllers)
+prop(bool IsPrimaryFiring)
+prop(bool IsAltFiring)
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -128,8 +130,8 @@ void fun::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 
 	// Bind fire event
-	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ALD44Character::OnFire);
-	PlayerInputComponent->BindAction("AltFire", IE_Pressed, this, &ALD44Character::OnAltFire);
+	PlayerInputComponent->BindAxis("Fire", this, &ALD44Character::PrimaryFireAxis);
+	PlayerInputComponent->BindAxis("AltFire", this, &ALD44Character::SetIsAltFiring);
 
 	// Enable touchscreen input
 	EnableTouchscreenMovement(PlayerInputComponent);
@@ -147,6 +149,24 @@ void fun::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAxis("TurnRate", this, &ALD44Character::TurnAtRate);
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis("LookUpRate", this, &ALD44Character::LookUpAtRate);
+}
+
+void fun::PrimaryFireAxis(float axisValue)
+{
+	SetIsPrimaryFiring(axisValue > 0.5f);
+}
+
+void fun::AltFireAxis(float axisValue)
+{
+	SetIsAltFiring(axisValue > 0.5f);
+}
+
+void fun::Tick(float deltaTime)
+{
+	Super::Tick(deltaTime);
+
+	if (IsPrimaryFiring) OnFire();
+	if (IsAltFiring) OnAltFire();
 }
 
 void fun::OnFire()

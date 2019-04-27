@@ -40,6 +40,10 @@ USoundBase* ALD44Character::GetFireSound(){ return FireSound; }
 void ALD44Character::SetFireSound(USoundBase* value){ FireSound = value; }
 UAnimMontage* ALD44Character::GetFireAnimation(){ return FireAnimation; }
 void ALD44Character::SetFireAnimation(UAnimMontage* value){ FireAnimation = value; }
+bool ALD44Character::GetIsPrimaryFiring(){ return IsPrimaryFiring; }
+void ALD44Character::SetIsPrimaryFiring(bool value){ IsPrimaryFiring = value; }
+bool ALD44Character::GetIsAltFiring(){ return IsAltFiring; }
+void ALD44Character::SetIsAltFiring(bool value){ IsAltFiring = value; }
 
 #include "LD44.h"
 #include "GameFramework/Character.h"
