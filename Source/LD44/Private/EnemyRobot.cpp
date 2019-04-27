@@ -20,42 +20,42 @@ void fun::Tick(float deltaTime)
 	LineTestCharge += deltaTime;
 	Aggro -= deltaTime;
 
-	if (Aggro > 0)
+	if (LineTestCharge >= 1)
 	{
-		if (LineTestCharge >= 1)
+		Attacking = false;
+		LineTestCharge = 0;
+		FVector playerPos;
+		ALD44Character* player = nullptr;
+
+		for (TActorIterator<ALD44Character> i(GetWorld()); i; ++i)
 		{
-			Attacking = false;
-			LineTestCharge = 0;
-			FVector playerPos;
-			ALD44Character* player = nullptr;
+			playerPos = i->GetActorLocation();
+			player = *i;
+		}
 
-			for (TActorIterator<ALD44Character> i(GetWorld()); i; ++i)
+		if (player)
+		{
+			FCollisionQueryParams params;
+			params.AddIgnoredActor(this);
+			params.AddIgnoredActor(player);
+
+			if (!GetWorld()->LineTraceTestByChannel(GetActorLocation(), playerPos, ECollisionChannel::ECC_Visibility))
 			{
-				playerPos = i->GetActorLocation();
-				player = *i;
-			}
-
-			if (player)
-			{
-				FCollisionQueryParams params;
-				params.AddIgnoredActor(this);
-				params.AddIgnoredActor(player);
-
-				if (!GetWorld()->LineTraceTestByChannel(GetActorLocation(), playerPos, ECollisionChannel::ECC_Visibility))
+				// we can see the player
+				Attacking = true;
+				Aggro = 4;
+				if (AttackProjectile)
 				{
-					// we can see the player
-					Attacking = true;
-					Aggro = 4;
-					if (AttackProjectile)
+					// if we're a ranged attacker, STOP when we can see them
+					if (auto ai = Cast<AAIController>(GetController()))
 					{
-						// if we're a ranged attacker, STOP when we can see them
-						if (auto ai = Cast<AAIController>(GetController()))
-						{
-							ai->StopMovement();
-						}
+						ai->StopMovement();
 					}
 				}
-				else
+			}
+			else
+			{
+				if (Aggro > 0)
 				{
 					if (auto ai = Cast<AAIController>(GetController()))
 					{
