@@ -1,142 +1,173 @@
-// Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
-
 #pragma once
 
-#include "CoreMinimal.h"
+#include "EngineMinimal.h"
 #include "GameFramework/Character.h"
+#include "UObject/NoExportTypes.h"
+#include "UObject/NoExportTypes.h"
+#include "Engine/EngineTypes.h"
+#include "Engine/EngineBaseTypes.h"
 #include "LD44Character.generated.h"
 
-class UInputComponent;
-
-UCLASS(config=Game)
-class ALD44Character : public ACharacter
+UCLASS()
+class LD44_API ALD44Character : public ACharacter
 {
 	GENERATED_BODY()
-
-	/** Pawn mesh: 1st person view (arms; seen only by self) */
-	UPROPERTY(VisibleDefaultsOnly, Category=Mesh)
+private:
+	UPROPERTY(SaveGame, VisibleAnywhere, BlueprintGetter=GetMesh1P, BlueprintSetter=SetMesh1P)
 	class USkeletalMeshComponent* Mesh1P;
 
-	/** Gun mesh: 1st person view (seen only by self) */
-	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+	UPROPERTY(SaveGame, VisibleAnywhere, BlueprintGetter=GetFP_Gun, BlueprintSetter=SetFP_Gun)
 	class USkeletalMeshComponent* FP_Gun;
 
-	/** Location on gun mesh where projectiles should spawn. */
-	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+	UPROPERTY(SaveGame, VisibleAnywhere, BlueprintGetter=GetFP_MuzzleLocation, BlueprintSetter=SetFP_MuzzleLocation)
 	class USceneComponent* FP_MuzzleLocation;
 
-	/** Gun mesh: VR view (attached to the VR controller directly, no arm, just the actual gun) */
-	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+	UPROPERTY(SaveGame, VisibleAnywhere, BlueprintGetter=GetVR_Gun, BlueprintSetter=SetVR_Gun)
 	class USkeletalMeshComponent* VR_Gun;
 
-	/** Location on VR gun mesh where projectiles should spawn. */
-	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+	UPROPERTY(SaveGame, VisibleAnywhere, BlueprintGetter=GetVR_MuzzleLocation, BlueprintSetter=SetVR_MuzzleLocation)
 	class USceneComponent* VR_MuzzleLocation;
 
-	/** First person camera */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(SaveGame, VisibleAnywhere, BlueprintGetter=GetFirstPersonCameraComponent, BlueprintSetter=SetFirstPersonCameraComponent)
 	class UCameraComponent* FirstPersonCameraComponent;
 
-	/** Motion controller (right hand) */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(SaveGame, VisibleAnywhere, BlueprintGetter=GetR_MotionController, BlueprintSetter=SetR_MotionController)
 	class UMotionControllerComponent* R_MotionController;
 
-	/** Motion controller (left hand) */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(SaveGame, VisibleAnywhere, BlueprintGetter=GetL_MotionController, BlueprintSetter=SetL_MotionController)
 	class UMotionControllerComponent* L_MotionController;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetBaseTurnRate, BlueprintSetter=SetBaseTurnRate)
+	float BaseTurnRate;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetBaseLookUpRate, BlueprintSetter=SetBaseLookUpRate)
+	float BaseLookUpRate;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetGunOffset, BlueprintSetter=SetGunOffset)
+	FVector GunOffset;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetProjectileClass, BlueprintSetter=SetProjectileClass)
+	TSubclassOf<class ALD44Projectile> ProjectileClass;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetFireSound, BlueprintSetter=SetFireSound)
+	class USoundBase* FireSound;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetFireAnimation, BlueprintSetter=SetFireAnimation)
+	class UAnimMontage* FireAnimation;
+
+	uint32 bUsingMotionControllers;
 
 public:
 	ALD44Character();
 
-protected:
-	virtual void BeginPlay();
+	void BeginPlay() override;
 
-public:
-	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
-	float BaseTurnRate;
+	UFUNCTION(BlueprintCallable)
+	void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent);
 
-	/** Base look up/down rate, in deg/sec. Other scaling may affect final rate. */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
-	float BaseLookUpRate;
-
-	/** Gun muzzle's offset from the characters location */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Gameplay)
-	FVector GunOffset;
-
-	/** Projectile class to spawn */
-	UPROPERTY(EditDefaultsOnly, Category=Projectile)
-	TSubclassOf<class ALD44Projectile> ProjectileClass;
-
-	/** Sound to play each time we fire */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Gameplay)
-	class USoundBase* FireSound;
-
-	/** AnimMontage to play each time we fire */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-	class UAnimMontage* FireAnimation;
-
-	/** Whether to use motion controller location for aiming. */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-	uint32 bUsingMotionControllers : 1;
-
-protected:
-	
-	/** Fires a projectile. */
+	UFUNCTION(BlueprintCallable)
 	void OnFire();
 
-	/** Resets HMD orientation and position in VR. */
+	UFUNCTION(BlueprintCallable)
 	void OnResetVR();
 
-	/** Handles moving forward/backward */
-	void MoveForward(float Val);
+	UFUNCTION(BlueprintCallable)
+	void MoveForward(float Value);
 
-	/** Handles stafing movement, left and right */
-	void MoveRight(float Val);
+	UFUNCTION(BlueprintCallable)
+	void MoveRight(float Value);
 
-	/**
-	 * Called via input to turn at a given rate.
-	 * @param Rate	This is a normalized rate, i.e. 1.0 means 100% of desired turn rate
-	 */
+	UFUNCTION(BlueprintCallable)
 	void TurnAtRate(float Rate);
 
-	/**
-	 * Called via input to turn look up/down at a given rate.
-	 * @param Rate	This is a normalized rate, i.e. 1.0 means 100% of desired turn rate
-	 */
+	UFUNCTION(BlueprintCallable)
 	void LookUpAtRate(float Rate);
 
-	struct TouchData
-	{
-		TouchData() { bIsPressed = false;Location=FVector::ZeroVector;}
-		bool bIsPressed;
-		ETouchIndex::Type FingerIndex;
-		FVector Location;
-		bool bMoved;
-	};
-	void BeginTouch(const ETouchIndex::Type FingerIndex, const FVector Location);
-	void EndTouch(const ETouchIndex::Type FingerIndex, const FVector Location);
-	void TouchUpdate(const ETouchIndex::Type FingerIndex, const FVector Location);
-	TouchData	TouchItem;
-	
-protected:
-	// APawn interface
-	virtual void SetupPlayerInputComponent(UInputComponent* InputComponent) override;
-	// End of APawn interface
+	UFUNCTION(BlueprintCallable)
+	bool EnableTouchscreenMovement(class UInputComponent* PlayerInputComponent);
 
-	/* 
-	 * Configures input for touchscreen devices if there is a valid touch interface for doing so 
-	 *
-	 * @param	InputComponent	The input component pointer to bind controls to
-	 * @returns true if touch controls were enabled.
-	 */
-	bool EnableTouchscreenMovement(UInputComponent* InputComponent);
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	class USkeletalMeshComponent* GetMesh1P();
 
-public:
-	/** Returns Mesh1P subobject **/
-	FORCEINLINE class USkeletalMeshComponent* GetMesh1P() const { return Mesh1P; }
-	/** Returns FirstPersonCameraComponent subobject **/
-	FORCEINLINE class UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetMesh1P(class USkeletalMeshComponent* value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	class USkeletalMeshComponent* GetFP_Gun();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetFP_Gun(class USkeletalMeshComponent* value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	class USceneComponent* GetFP_MuzzleLocation();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetFP_MuzzleLocation(class USceneComponent* value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	class USkeletalMeshComponent* GetVR_Gun();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetVR_Gun(class USkeletalMeshComponent* value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	class USceneComponent* GetVR_MuzzleLocation();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetVR_MuzzleLocation(class USceneComponent* value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	class UCameraComponent* GetFirstPersonCameraComponent();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetFirstPersonCameraComponent(class UCameraComponent* value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	class UMotionControllerComponent* GetR_MotionController();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetR_MotionController(class UMotionControllerComponent* value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	class UMotionControllerComponent* GetL_MotionController();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetL_MotionController(class UMotionControllerComponent* value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetBaseTurnRate();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetBaseTurnRate(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetBaseLookUpRate();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetBaseLookUpRate(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	FVector GetGunOffset();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetGunOffset(FVector value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	TSubclassOf<class ALD44Projectile>  GetProjectileClass();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetProjectileClass(TSubclassOf<class ALD44Projectile> value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	class USoundBase* GetFireSound();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetFireSound(class USoundBase* value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	class UAnimMontage* GetFireAnimation();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetFireAnimation(class UAnimMontage* value);
 
 };
-

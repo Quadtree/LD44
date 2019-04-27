@@ -1,23 +1,32 @@
 // Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
 
 #include "LD44Character.h"
-#include "LD44Projectile.h"
-#include "Animation/AnimInstance.h"
-#include "Camera/CameraComponent.h"
-#include "Components/CapsuleComponent.h"
-#include "Components/InputComponent.h"
-#include "GameFramework/InputSettings.h"
-#include "HeadMountedDisplayFunctionLibrary.h"
-#include "Kismet/GameplayStatics.h"
-#include "MotionControllerComponent.h"
-#include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
+#include "LD44Character.ac.h"
+
+extends(ACharacter)
+
+prop(USkeletalMeshComponent* Mesh1P)
+prop(USkeletalMeshComponent* FP_Gun)
+prop(USceneComponent* FP_MuzzleLocation)
+prop(USkeletalMeshComponent* VR_Gun)
+prop(USceneComponent* VR_MuzzleLocation)
+prop(UCameraComponent* FirstPersonCameraComponent)
+prop(UMotionControllerComponent* R_MotionController)
+prop(UMotionControllerComponent* L_MotionController)
+prop(float BaseTurnRate)
+prop(float BaseLookUpRate)
+prop(FVector GunOffset)
+prop(TSubclassOf<class ALD44Projectile> ProjectileClass)
+prop(USoundBase* FireSound)
+prop(UAnimMontage* FireAnimation)
+prop(bare private uint32 bUsingMotionControllers)
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
 //////////////////////////////////////////////////////////////////////////
 // ALD44Character
 
-ALD44Character::ALD44Character()
+fun::ALD44Character()
 {
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
@@ -84,7 +93,7 @@ ALD44Character::ALD44Character()
 	//bUsingMotionControllers = true;
 }
 
-void ALD44Character::BeginPlay()
+void fun::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
@@ -108,7 +117,7 @@ void ALD44Character::BeginPlay()
 //////////////////////////////////////////////////////////////////////////
 // Input
 
-void ALD44Character::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
+void fun::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 {
 	// set up gameplay key bindings
 	check(PlayerInputComponent);
@@ -138,7 +147,7 @@ void ALD44Character::SetupPlayerInputComponent(class UInputComponent* PlayerInpu
 	PlayerInputComponent->BindAxis("LookUpRate", this, &ALD44Character::LookUpAtRate);
 }
 
-void ALD44Character::OnFire()
+void fun::OnFire()
 {
 	// try and fire a projectile
 	if (ProjectileClass != NULL)
@@ -186,75 +195,12 @@ void ALD44Character::OnFire()
 	}
 }
 
-void ALD44Character::OnResetVR()
+void fun::OnResetVR()
 {
 	UHeadMountedDisplayFunctionLibrary::ResetOrientationAndPosition();
 }
 
-void ALD44Character::BeginTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
-{
-	if (TouchItem.bIsPressed == true)
-	{
-		return;
-	}
-	if ((FingerIndex == TouchItem.FingerIndex) && (TouchItem.bMoved == false))
-	{
-		OnFire();
-	}
-	TouchItem.bIsPressed = true;
-	TouchItem.FingerIndex = FingerIndex;
-	TouchItem.Location = Location;
-	TouchItem.bMoved = false;
-}
-
-void ALD44Character::EndTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
-{
-	if (TouchItem.bIsPressed == false)
-	{
-		return;
-	}
-	TouchItem.bIsPressed = false;
-}
-
-//Commenting this section out to be consistent with FPS BP template.
-//This allows the user to turn without using the right virtual joystick
-
-//void ALD44Character::TouchUpdate(const ETouchIndex::Type FingerIndex, const FVector Location)
-//{
-//	if ((TouchItem.bIsPressed == true) && (TouchItem.FingerIndex == FingerIndex))
-//	{
-//		if (TouchItem.bIsPressed)
-//		{
-//			if (GetWorld() != nullptr)
-//			{
-//				UGameViewportClient* ViewportClient = GetWorld()->GetGameViewport();
-//				if (ViewportClient != nullptr)
-//				{
-//					FVector MoveDelta = Location - TouchItem.Location;
-//					FVector2D ScreenSize;
-//					ViewportClient->GetViewportSize(ScreenSize);
-//					FVector2D ScaledDelta = FVector2D(MoveDelta.X, MoveDelta.Y) / ScreenSize;
-//					if (FMath::Abs(ScaledDelta.X) >= 4.0 / ScreenSize.X)
-//					{
-//						TouchItem.bMoved = true;
-//						float Value = ScaledDelta.X * BaseTurnRate;
-//						AddControllerYawInput(Value);
-//					}
-//					if (FMath::Abs(ScaledDelta.Y) >= 4.0 / ScreenSize.Y)
-//					{
-//						TouchItem.bMoved = true;
-//						float Value = ScaledDelta.Y * BaseTurnRate;
-//						AddControllerPitchInput(Value);
-//					}
-//					TouchItem.Location = Location;
-//				}
-//				TouchItem.Location = Location;
-//			}
-//		}
-//	}
-//}
-
-void ALD44Character::MoveForward(float Value)
+void fun::MoveForward(float Value)
 {
 	if (Value != 0.0f)
 	{
@@ -263,7 +209,7 @@ void ALD44Character::MoveForward(float Value)
 	}
 }
 
-void ALD44Character::MoveRight(float Value)
+void fun::MoveRight(float Value)
 {
 	if (Value != 0.0f)
 	{
@@ -272,24 +218,24 @@ void ALD44Character::MoveRight(float Value)
 	}
 }
 
-void ALD44Character::TurnAtRate(float Rate)
+void fun::TurnAtRate(float Rate)
 {
 	// calculate delta for this frame from the rate information
 	AddControllerYawInput(Rate * BaseTurnRate * GetWorld()->GetDeltaSeconds());
 }
 
-void ALD44Character::LookUpAtRate(float Rate)
+void fun::LookUpAtRate(float Rate)
 {
 	// calculate delta for this frame from the rate information
 	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
 }
 
-bool ALD44Character::EnableTouchscreenMovement(class UInputComponent* PlayerInputComponent)
+bool fun::EnableTouchscreenMovement(class UInputComponent* PlayerInputComponent)
 {
 	if (FPlatformMisc::SupportsTouchInput() || GetDefault<UInputSettings>()->bUseMouseForTouch)
 	{
-		PlayerInputComponent->BindTouch(EInputEvent::IE_Pressed, this, &ALD44Character::BeginTouch);
-		PlayerInputComponent->BindTouch(EInputEvent::IE_Released, this, &ALD44Character::EndTouch);
+		//PlayerInputComponent->BindTouch(EInputEvent::IE_Pressed, this, &fun::BeginTouch);
+		//PlayerInputComponent->BindTouch(EInputEvent::IE_Released, this, &fun::EndTouch);
 
 		//Commenting this out to be more consistent with FPS BP template.
 		//PlayerInputComponent->BindTouch(EInputEvent::IE_Repeat, this, &ALD44Character::TouchUpdate);
