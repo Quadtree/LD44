@@ -307,3 +307,17 @@ bool fun::EnableTouchscreenMovement(class UInputComponent* PlayerInputComponent)
 	
 	return false;
 }
+
+float fun::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser)
+{
+	Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+
+	Health -= DamageAmount;
+
+	if (Health <= 0)
+	{
+		UE_LOG(LogTemp, Display, TEXT("Player has died"));
+	}
+
+	return DamageAmount;
+}

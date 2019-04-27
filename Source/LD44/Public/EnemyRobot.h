@@ -2,6 +2,7 @@
 
 #include "EngineMinimal.h"
 #include "GameFramework/Character.h"
+#include "LD44.h"
 #include "Engine/EngineTypes.h"
 #include "EnemyRobot.generated.h"
 
@@ -22,7 +23,7 @@ private:
 	float NonProjectileAttackRange;
 
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetAttackProjectile, BlueprintSetter=SetAttackProjectile)
-	TSubclassOf<AActor> AttackProjectile;
+	TSubclassOf<ALD44Projectile> AttackProjectile;
 
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetAggro, BlueprintSetter=SetAggro)
 	float Aggro;
@@ -36,6 +37,8 @@ private:
 
 public:
 	void Tick(float deltaTime) override;
+
+	float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser) override;
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	float GetAttackDamage();
@@ -62,10 +65,10 @@ public:
 	void SetNonProjectileAttackRange(float value);
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
-	TSubclassOf<AActor>  GetAttackProjectile();
+	TSubclassOf<ALD44Projectile>  GetAttackProjectile();
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
-	void SetAttackProjectile(TSubclassOf<AActor> value);
+	void SetAttackProjectile(TSubclassOf<ALD44Projectile> value);
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	float GetAggro();

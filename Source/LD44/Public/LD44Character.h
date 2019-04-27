@@ -128,6 +128,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	bool EnableTouchscreenMovement(class UInputComponent* PlayerInputComponent);
 
+	float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser) override;
+
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	class USkeletalMeshComponent* GetMesh1P();
 

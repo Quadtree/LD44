@@ -65,7 +65,7 @@ void ALD44Character::SetEnergy(float value){ Energy = value; }
 #include "MotionControllerComponent.h"
 #include "UObject/NoExportTypes.h"
 #include "Templates/SubclassOf.h"
-#include "Private/LD44Projectile.h"
+#include "Public/LD44Projectile.h"
 #include "Sound/SoundBase.h"
 #include "Animation/AnimMontage.h"
 #include "Public/LD44Character.h"
@@ -81,3 +81,4 @@ void ALD44Character::SetEnergy(float value){ Energy = value; }
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "GameFramework/InputSettings.h"
 #include "Engine/EngineBaseTypes.h"
+#include "GameFramework/Controller.h"

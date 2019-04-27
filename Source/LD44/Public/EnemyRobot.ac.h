@@ -18,8 +18,8 @@ float AEnemyRobot::GetAttackDelay(){ return AttackDelay; }
 void AEnemyRobot::SetAttackDelay(float value){ AttackDelay = value; }
 float AEnemyRobot::GetNonProjectileAttackRange(){ return NonProjectileAttackRange; }
 void AEnemyRobot::SetNonProjectileAttackRange(float value){ NonProjectileAttackRange = value; }
-TSubclassOf<AActor> AEnemyRobot::GetAttackProjectile(){ return AttackProjectile; }
-void AEnemyRobot::SetAttackProjectile(TSubclassOf<AActor> value){ AttackProjectile = value; }
+TSubclassOf<ALD44Projectile> AEnemyRobot::GetAttackProjectile(){ return AttackProjectile; }
+void AEnemyRobot::SetAttackProjectile(TSubclassOf<ALD44Projectile> value){ AttackProjectile = value; }
 float AEnemyRobot::GetAggro(){ return Aggro; }
 void AEnemyRobot::SetAggro(float value){ Aggro = value; }
 float AEnemyRobot::GetLineTestCharge(){ return LineTestCharge; }
@@ -29,9 +29,10 @@ void AEnemyRobot::SetAttacking(bool value){ Attacking = value; }
 float AEnemyRobot::GetHealth(){ return Health; }
 void AEnemyRobot::SetHealth(float value){ Health = value; }
 
+#include "LD44.h"
 #include "GameFramework/Character.h"
 #include "Templates/SubclassOf.h"
-#include "GameFramework/Actor.h"
+#include "Public/LD44Projectile.h"
 #include "UObject/NoExportTypes.h"
 #include "Public/LD44Character.h"
 #include "EngineUtils.h"
@@ -39,3 +40,5 @@ void AEnemyRobot::SetHealth(float value){ Health = value; }
 #include "Engine/EngineTypes.h"
 #include "AIController.h"
 #include "Components/SceneComponent.h"
+#include "GameFramework/Controller.h"
+#include "GameFramework/Actor.h"

@@ -1,10 +1,15 @@
 // Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
 
 #include "LD44Projectile.h"
-#include "GameFramework/ProjectileMovementComponent.h"
-#include "Components/SphereComponent.h"
+#include "LD44Projectile.ac.h"
 
-ALD44Projectile::ALD44Projectile() 
+extends(AActor)
+
+prop(USphereComponent* CollisionComp)
+prop(UProjectileMovementComponent* ProjectileMovement)
+prop(float DamageOnHit)
+
+fun::ALD44Projectile() 
 {
 	// Use a sphere as a simple collision representation
 	CollisionComp = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComp"));
@@ -31,13 +36,21 @@ ALD44Projectile::ALD44Projectile()
 	InitialLifeSpan = 3.0f;
 }
 
-void ALD44Projectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+void fun::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
 	// Only add impulse and destroy projectile if we hit a physics
 	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
 	{
-		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+		OtherComp->AddImpulseAtLocation(GetVelocity() * 500.0f, GetActorLocation());
 
 		Destroy();
 	}
+
+	FPointDamageEvent pt;
+	pt.Damage = DamageOnHit;
+	pt.ShotDirection = GetActorRotation().RotateVector(FVector(1,0,0));
+
+	OtherActor->TakeDamage(DamageOnHit, pt, GetInstigatorController(), this);
+
+	Destroy();
 }

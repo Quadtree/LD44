@@ -7,7 +7,7 @@ prop(float AttackDamage)
 prop(bare float AttackCharge)
 prop(float AttackDelay)
 prop(float NonProjectileAttackRange)
-prop(TSubclassOf<AActor> AttackProjectile)
+prop(TSubclassOf<ALD44Projectile> AttackProjectile)
 prop(float Aggro)
 prop(bare float LineTestCharge)
 prop(bare bool Attacking)
@@ -97,8 +97,29 @@ void fun::Tick(float deltaTime)
 					break;
 				}
 
-				GetWorld()->SpawnActor<AActor>(AttackProjectile, spawnPoint, GetControlRotation());
+				auto prj = GetWorld()->SpawnActor<ALD44Projectile>(AttackProjectile, spawnPoint, GetControlRotation());
+				if (prj)
+				{
+					prj->SetDamageOnHit(AttackDamage);
+				}
 			}
 		}
 	}
+}
+
+float fun::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser)
+{
+	Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+
+	Health -= DamageAmount;
+
+	if (Health <= 0)
+	{
+		UE_LOG(LogTemp, Display, TEXT("Enemy %s has died"), *GetName());
+		Destroy();
+
+		// TODO: Enemy explosions
+	}
+
+	return DamageAmount;
 }
