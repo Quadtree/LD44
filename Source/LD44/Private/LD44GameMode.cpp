@@ -68,19 +68,20 @@ void fun::PlayerWins()
 			req->OnProcessRequestComplete().BindUObject(this, &fun::HighScoresReceived);
 			req->SetURL("https://sigma.quadtree.info/dyn/lighttpd/ld/ld44/highscores.php");
 			req->SetVerb("POST");
+			req->SetHeader("Content-Type", "application/x-www-form-urlencoded");
 			req->SetContentAsString(
 				"t=" + FString::SanitizeFloat(LevelTime) +
-				"l=" + UGameplayStatics::GetCurrentLevelName(this) +
-				"u0=" + FString::FromInt(pc->GetUpgradeLevel((EUpgradeType) 0)) +
-				"u1=" + FString::FromInt(pc->GetUpgradeLevel((EUpgradeType) 1)) +
-				"u2=" + FString::FromInt(pc->GetUpgradeLevel((EUpgradeType) 2)) +
-				"u3=" + FString::FromInt(pc->GetUpgradeLevel((EUpgradeType) 3)) +
-				"u4=" + FString::FromInt(pc->GetUpgradeLevel((EUpgradeType) 4)) +
-				"u5=" + FString::FromInt(pc->GetUpgradeLevel((EUpgradeType) 5)) +
-				"u6=" + FString::FromInt(pc->GetUpgradeLevel((EUpgradeType) 6)) +
-				"u7=" + FString::FromInt(pc->GetUpgradeLevel((EUpgradeType) 7)) +
-				"u8=" + FString::FromInt(pc->GetUpgradeLevel((EUpgradeType) 8)) +
-				"u9=" + FString::FromInt(pc->GetUpgradeLevel((EUpgradeType) 9))
+				"&l=" + UGameplayStatics::GetCurrentLevelName(this) +
+				"&u0=" + FString::FromInt(pc->GetUpgradeLevel((EUpgradeType) 0)) +
+				"&u1=" + FString::FromInt(pc->GetUpgradeLevel((EUpgradeType) 1)) +
+				"&u2=" + FString::FromInt(pc->GetUpgradeLevel((EUpgradeType) 2)) +
+				"&u3=" + FString::FromInt(pc->GetUpgradeLevel((EUpgradeType) 3)) +
+				"&u4=" + FString::FromInt(pc->GetUpgradeLevel((EUpgradeType) 4)) +
+				"&u5=" + FString::FromInt(pc->GetUpgradeLevel((EUpgradeType) 5)) +
+				"&u6=" + FString::FromInt(pc->GetUpgradeLevel((EUpgradeType) 6)) +
+				"&u7=" + FString::FromInt(pc->GetUpgradeLevel((EUpgradeType) 7)) +
+				"&u8=" + FString::FromInt(pc->GetUpgradeLevel((EUpgradeType) 8)) +
+				"&u9=" + FString::FromInt(pc->GetUpgradeLevel((EUpgradeType) 9))
 			);
 			req->ProcessRequest();
 		}
