@@ -44,6 +44,14 @@ bool ALD44Character::GetIsPrimaryFiring(){ return IsPrimaryFiring; }
 void ALD44Character::SetIsPrimaryFiring(bool value){ IsPrimaryFiring = value; }
 bool ALD44Character::GetIsAltFiring(){ return IsAltFiring; }
 void ALD44Character::SetIsAltFiring(bool value){ IsAltFiring = value; }
+float ALD44Character::GetPrimaryFireCharge(){ return PrimaryFireCharge; }
+void ALD44Character::SetPrimaryFireCharge(float value){ PrimaryFireCharge = value; }
+float ALD44Character::GetAltFireCharge(){ return AltFireCharge; }
+void ALD44Character::SetAltFireCharge(float value){ AltFireCharge = value; }
+float ALD44Character::GetPrimaryFireShotDelay(){ return PrimaryFireShotDelay; }
+void ALD44Character::SetPrimaryFireShotDelay(float value){ PrimaryFireShotDelay = value; }
+float ALD44Character::GetAltFireShotDelay(){ return AltFireShotDelay; }
+void ALD44Character::SetAltFireShotDelay(float value){ AltFireShotDelay = value; }
 
 #include "LD44.h"
 #include "GameFramework/Character.h"

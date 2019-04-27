@@ -23,6 +23,10 @@ prop(UAnimMontage* FireAnimation)
 prop(bare private uint32 bUsingMotionControllers)
 prop(bool IsPrimaryFiring)
 prop(bool IsAltFiring)
+prop(float PrimaryFireCharge)
+prop(float AltFireCharge)
+prop(float PrimaryFireShotDelay)
+prop(float AltFireShotDelay)
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -131,7 +135,7 @@ void fun::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 
 	// Bind fire event
 	PlayerInputComponent->BindAxis("Fire", this, &ALD44Character::PrimaryFireAxis);
-	PlayerInputComponent->BindAxis("AltFire", this, &ALD44Character::SetIsAltFiring);
+	PlayerInputComponent->BindAxis("AltFire", this, &ALD44Character::AltFireAxis);
 
 	// Enable touchscreen input
 	EnableTouchscreenMovement(PlayerInputComponent);
@@ -165,8 +169,11 @@ void fun::Tick(float deltaTime)
 {
 	Super::Tick(deltaTime);
 
-	if (IsPrimaryFiring) OnFire();
-	if (IsAltFiring) OnAltFire();
+	PrimaryFireCharge += deltaTime;
+	AltFireCharge += deltaTime;
+
+	if (IsPrimaryFiring && PrimaryFireCharge >= PrimaryFireShotDelay) OnFire();
+	if (IsAltFiring && AltFireCharge >= AltFireShotDelay) OnAltFire();
 }
 
 void fun::OnFire()
@@ -217,11 +224,13 @@ void fun::OnFire()
 	}*/
 
 	DoFire("LeftGun", ProjectileClass);
+	PrimaryFireCharge = 0;
 }
 
 void fun::OnAltFire()
 {
 	DoFire("RightGun", AltProjectileClass);
+	AltFireCharge = 0;
 }
 
 mods(private) void fun::DoFire(FString gunTag, const TSubclassOf<AActor>& projectileClassArg)

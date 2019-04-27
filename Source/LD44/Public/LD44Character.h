@@ -67,6 +67,18 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetIsAltFiring, BlueprintSetter=SetIsAltFiring)
 	bool IsAltFiring;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetPrimaryFireCharge, BlueprintSetter=SetPrimaryFireCharge)
+	float PrimaryFireCharge;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetAltFireCharge, BlueprintSetter=SetAltFireCharge)
+	float AltFireCharge;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetPrimaryFireShotDelay, BlueprintSetter=SetPrimaryFireShotDelay)
+	float PrimaryFireShotDelay;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetAltFireShotDelay, BlueprintSetter=SetAltFireShotDelay)
+	float AltFireShotDelay;
+
 	UFUNCTION()
 	void DoFire(FString gunTag, const TSubclassOf<AActor>& projectileClassArg);
 
@@ -211,5 +223,29 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetIsAltFiring(bool value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetPrimaryFireCharge();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetPrimaryFireCharge(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetAltFireCharge();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetAltFireCharge(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetPrimaryFireShotDelay();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetPrimaryFireShotDelay(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetAltFireShotDelay();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetAltFireShotDelay(float value);
 
 };
