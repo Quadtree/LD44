@@ -36,8 +36,6 @@ private:
 	float Health;
 
 public:
-	AEnemyRobot(const FObjectInitializer& init);
-
 	void Tick(float deltaTime) override;
 
 	float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser) override;

@@ -13,12 +13,6 @@ prop(bare float LineTestCharge)
 prop(bare bool Attacking)
 prop(float Health)
 
-fun::AEnemyRobot(const FObjectInitializer& init)
-	: Super(init.SetDefaultSubobjectClass<UCrowdFollowingComponent>(TEXT("PathFollowingComponent")))
-{
-
-}
-
 void fun::Tick(float deltaTime)
 {
 	Super::Tick(deltaTime);
