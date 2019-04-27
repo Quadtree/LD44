@@ -65,6 +65,8 @@ Note that it will NOT reset the level timer, so try not to die.
 
 ### TODO
 - Create boss enemy
+- Salvage system
+- High score system
 - Final graphics for player guns, projectiles, and enemies
 - Create level 1
 - Create level 2
