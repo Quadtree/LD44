@@ -177,7 +177,17 @@ float fun::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent
 			FActorSpawnParameters params;
 			params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
-			GetWorld()->SpawnActor<ASalvage>(SalvageClass, pt, FRotator::ZeroRotator, params);
+			auto s = GetWorld()->SpawnActor<ASalvage>(SalvageClass, pt, FRotator::ZeroRotator, params);
+			if (s)
+			{
+				FVector dir = (pt - GetActorLocation()).GetSafeNormal();
+
+				if (auto root = Cast<UPrimitiveComponent>(s->GetRootComponent()))
+				{
+					root->AddImpulse(dir * 100, NAME_None, true);
+					root->AddAngularImpulse(FVector(FMath::FRandRange(-100, 100), FMath::FRandRange(-100, 100), FMath::FRandRange(-100, 100)), NAME_None, true);
+				}
+			}
 		}
 
 		// TODO: Enemy explosions

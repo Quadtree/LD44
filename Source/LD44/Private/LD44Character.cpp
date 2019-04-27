@@ -324,7 +324,11 @@ mods(private) bool fun::DoFire(FString gunTag, const TSubclassOf<AActor>& projec
 				auto sc = Cast<USceneComponent>(comps[0]);
 				FVector spawnPos = sc->GetComponentLocation();
 
-				GetWorld()->SpawnActor<AActor>(projectileClassArg, spawnPos, GetControlRotation());
+				auto prj = GetWorld()->SpawnActor<ALD44Projectile>(projectileClassArg, spawnPos, GetControlRotation());
+				if (prj)
+				{
+					prj->SetDamageOnHit(damage);
+				}
 			}
 			else
 			{

@@ -49,3 +49,4 @@ void AEnemyRobot::SetSalvageQuantity(int32 value){ SalvageQuantity = value; }
 #include "GameFramework/Controller.h"
 #include "GameFramework/Actor.h"
 #include "Math/UnrealMathUtility.h"
+#include "Components/PrimitiveComponent.h"
