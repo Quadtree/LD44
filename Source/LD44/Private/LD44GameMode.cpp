@@ -12,6 +12,8 @@ prop(bool PlayerWinsIfAllEnemiesDestroyed)
 
 prop(float LevelTime)
 
+prop(float LastCheckpointTime)
+
 // flag to tell blueprints that the player has won the level
 prop(bool PlayerHasWon)
 
@@ -38,6 +40,21 @@ void fun::PlayerWins()
 		PlayerHasWon = true;
 		UGameplayStatics::SetGamePaused(this, true);
 	}
+}
+
+void fun::PlayerHasDied()
+{
+
+}
+
+void fun::Checkpoint()
+{
+
+}
+
+void fun::RestoreCheckpoint()
+{
+
 }
 
 void fun::Tick(float deltaTime)

@@ -22,6 +22,9 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetLevelTime, BlueprintSetter=SetLevelTime)
 	float LevelTime;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetLastCheckpointTime, BlueprintSetter=SetLastCheckpointTime)
+	float LastCheckpointTime;
+
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetPlayerHasWon, BlueprintSetter=SetPlayerHasWon)
 	bool PlayerHasWon;
 
@@ -36,6 +39,15 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void PlayerWins();
+
+	UFUNCTION(BlueprintCallable)
+	void PlayerHasDied();
+
+	UFUNCTION(BlueprintCallable)
+	void Checkpoint();
+
+	UFUNCTION(BlueprintCallable)
+	void RestoreCheckpoint();
 
 	void Tick(float deltaTime) override;
 
@@ -62,6 +74,12 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetLevelTime(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetLastCheckpointTime();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetLastCheckpointTime(float value);
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	bool GetPlayerHasWon();

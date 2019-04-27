@@ -18,6 +18,8 @@ bool ALD44GameMode::GetPlayerWinsIfAllEnemiesDestroyed(){ return PlayerWinsIfAll
 void ALD44GameMode::SetPlayerWinsIfAllEnemiesDestroyed(bool value){ PlayerWinsIfAllEnemiesDestroyed = value; }
 float ALD44GameMode::GetLevelTime(){ return LevelTime; }
 void ALD44GameMode::SetLevelTime(float value){ LevelTime = value; }
+float ALD44GameMode::GetLastCheckpointTime(){ return LastCheckpointTime; }
+void ALD44GameMode::SetLastCheckpointTime(float value){ LastCheckpointTime = value; }
 bool ALD44GameMode::GetPlayerHasWon(){ return PlayerHasWon; }
 void ALD44GameMode::SetPlayerHasWon(bool value){ PlayerHasWon = value; }
 TMap<FString, FString> ALD44GameMode::GetLastCheckpointData(){ return LastCheckpointData; }
