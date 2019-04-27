@@ -63,9 +63,9 @@ Note that it will NOT reset the level timer, so try not to die.
 - Add in checkpoints
 - Create melee enemy
 - Create boss enemy
+- Fix bug where projectiles block LOS
 
 ### TODO
-- Fix bug where projectiles block LOS
 - Salvage system
 - High score system
 - Final graphics for player guns, projectiles, and enemies
