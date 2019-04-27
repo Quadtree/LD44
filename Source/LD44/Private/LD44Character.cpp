@@ -212,9 +212,9 @@ mods(private) void fun::DoFire(FString gunTag, const TSubclassOf<AActor>& projec
 		if (comps.Num())
 		{
 			auto sc = Cast<USceneComponent>(comps[0]);
-			FVector spawnPos = sc->GetComponentLocation() + sc->GetComponentRotation().RotateVector(FVector(0, 0, -100));
+			FVector spawnPos = sc->GetComponentLocation();
 
-			GetWorld()->SpawnActor<AActor>(projectileClassArg, spawnPos, sc->GetComponentRotation());
+			GetWorld()->SpawnActor<AActor>(projectileClassArg, spawnPos, GetControlRotation());
 		}
 		else
 		{
