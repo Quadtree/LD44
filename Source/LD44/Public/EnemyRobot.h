@@ -31,6 +31,9 @@ private:
 
 	bool Attacking;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetHealth, BlueprintSetter=SetHealth)
+	float Health;
+
 public:
 	void Tick(float deltaTime) override;
 
@@ -81,5 +84,11 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetAttacking(bool value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetHealth();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetHealth(float value);
 
 };

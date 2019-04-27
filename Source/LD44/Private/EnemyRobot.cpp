@@ -11,6 +11,7 @@ prop(TSubclassOf<AActor> AttackProjectile)
 prop(float Aggro)
 prop(bare float LineTestCharge)
 prop(bare bool Attacking)
+prop(float Health)
 
 void fun::Tick(float deltaTime)
 {

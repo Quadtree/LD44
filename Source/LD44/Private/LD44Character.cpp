@@ -27,6 +27,8 @@ prop(float PrimaryFireCharge)
 prop(float AltFireCharge)
 prop(float PrimaryFireShotDelay)
 prop(float AltFireShotDelay)
+prop(float Health)
+prop(float Energy)
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 

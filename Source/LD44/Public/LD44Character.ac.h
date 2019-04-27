@@ -52,6 +52,10 @@ float ALD44Character::GetPrimaryFireShotDelay(){ return PrimaryFireShotDelay; }
 void ALD44Character::SetPrimaryFireShotDelay(float value){ PrimaryFireShotDelay = value; }
 float ALD44Character::GetAltFireShotDelay(){ return AltFireShotDelay; }
 void ALD44Character::SetAltFireShotDelay(float value){ AltFireShotDelay = value; }
+float ALD44Character::GetHealth(){ return Health; }
+void ALD44Character::SetHealth(float value){ Health = value; }
+float ALD44Character::GetEnergy(){ return Energy; }
+void ALD44Character::SetEnergy(float value){ Energy = value; }
 
 #include "LD44.h"
 #include "GameFramework/Character.h"

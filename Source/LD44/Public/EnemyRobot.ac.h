@@ -26,6 +26,8 @@ float AEnemyRobot::GetLineTestCharge(){ return LineTestCharge; }
 void AEnemyRobot::SetLineTestCharge(float value){ LineTestCharge = value; }
 bool AEnemyRobot::GetAttacking(){ return Attacking; }
 void AEnemyRobot::SetAttacking(bool value){ Attacking = value; }
+float AEnemyRobot::GetHealth(){ return Health; }
+void AEnemyRobot::SetHealth(float value){ Health = value; }
 
 #include "GameFramework/Character.h"
 #include "Templates/SubclassOf.h"

@@ -79,6 +79,12 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetAltFireShotDelay, BlueprintSetter=SetAltFireShotDelay)
 	float AltFireShotDelay;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetHealth, BlueprintSetter=SetHealth)
+	float Health;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetEnergy, BlueprintSetter=SetEnergy)
+	float Energy;
+
 	UFUNCTION()
 	void DoFire(FString gunTag, const TSubclassOf<AActor>& projectileClassArg);
 
@@ -247,5 +253,17 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetAltFireShotDelay(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetHealth();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetHealth(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetEnergy();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetEnergy(float value);
 
 };
