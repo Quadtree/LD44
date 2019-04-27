@@ -73,6 +73,7 @@ void ALD44Character::SetEnergy(float value){ Energy = value; }
 #include "Engine/EngineTypes.h"
 #include "Components/InputComponent.h"
 #include "GameFramework/Pawn.h"
+#include "Math/UnrealMathUtility.h"
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
 #include "Animation/AnimInstance.h"

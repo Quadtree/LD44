@@ -53,9 +53,13 @@ Note that it will NOT reset the level timer, so try not to die.
 - Destroy the evil robots' factory
 
 ## Task List
+### Done
 - Create basic tank enemy
 - Make sure damage works
 - Make basic enemy fire at player and move
+
+### TODO
+- Add in energy
 - Add in all upgrades
 - Add in level timer
 - Add in checkpoints

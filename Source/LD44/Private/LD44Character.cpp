@@ -174,6 +174,9 @@ void fun::Tick(float deltaTime)
 	PrimaryFireCharge += deltaTime;
 	AltFireCharge += deltaTime;
 
+	Energy = FMath::Clamp(Energy + deltaTime * 25.f, 0.f, 100.f);
+	
+
 	if (IsPrimaryFiring && PrimaryFireCharge >= PrimaryFireShotDelay) OnFire();
 	if (IsAltFiring && AltFireCharge >= AltFireShotDelay) OnAltFire();
 }
