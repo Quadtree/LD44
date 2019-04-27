@@ -16,5 +16,7 @@ float UHighScoresRow::GetTime(){ return Time; }
 void UHighScoresRow::SetTime(float value){ Time = value; }
 bool UHighScoresRow::GetIsMe(){ return IsMe; }
 void UHighScoresRow::SetIsMe(bool value){ IsMe = value; }
+float UHighScoresRow::GetHealth(){ return Health; }
+void UHighScoresRow::SetHealth(float value){ Health = value; }
 
 #include "Public/UpgradeType.h"

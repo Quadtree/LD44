@@ -60,6 +60,7 @@ mods(bare) void fun::HighScoresReceived(TSharedPtr<class IHttpRequest> req, TSha
 				auto io = NewObject<UHighScoresRow>();
 				io->SetTime(jo->GetNumberField("TimeToFinish"));
 				io->SetIsMe(jo->GetBoolField("IsMyScore"));
+				io->SetHealth(jo->GetNumberField("Health"));
 
 				TMap<EUpgradeType, int32> upgradeLevels;
 
@@ -104,6 +105,7 @@ void fun::PlayerWins()
 			req->SetContentAsString(
 				"t=" + FString::SanitizeFloat(LevelTime) +
 				"&l=" + UGameplayStatics::GetCurrentLevelName(this) +
+				"&h=" + FString::SanitizeFloat(pc->GetHealth()) +
 				"&u0=" + FString::FromInt(pc->GetUpgradeLevel((EUpgradeType) 0)) +
 				"&u1=" + FString::FromInt(pc->GetUpgradeLevel((EUpgradeType) 1)) +
 				"&u2=" + FString::FromInt(pc->GetUpgradeLevel((EUpgradeType) 2)) +

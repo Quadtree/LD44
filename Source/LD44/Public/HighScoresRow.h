@@ -18,6 +18,9 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetIsMe, BlueprintSetter=SetIsMe)
 	bool IsMe;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetHealth, BlueprintSetter=SetHealth)
+	float Health;
+
 public:
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	TMap<EUpgradeType, int32> GetUpgradeLevels();
@@ -36,5 +39,11 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetIsMe(bool value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetHealth();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetHealth(float value);
 
 };

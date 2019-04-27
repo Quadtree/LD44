@@ -5,6 +5,7 @@ $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
 $pdo->exec("CREATE TABLE IF NOT EXISTS HighScores (
     Id INTEGER,
+    Health REAL,
     CurrentDateTime TEXT,
     RemoteIP TEXT,
     TimeToFinish REAL,
@@ -27,6 +28,7 @@ if (!empty($_POST['t']))
 {
     $expectedC = substr(md5(
         $_POST['t'] .
+        $_POST['h'] .
         $_POST['l'] .
         $_POST['u0'] .
         $_POST['u1'] .
@@ -41,9 +43,10 @@ if (!empty($_POST['t']))
 
     if ($_POST['c'] == $expectedC || 1)
     {
-        $stmt = $pdo->prepare("INSERT INTO HighScores VALUES (?, ?, ?, ?, ?,  ?, ?, ?, ?, ?,  ?, ?, ?, ?, ?);");
+        $stmt = $pdo->prepare("INSERT INTO HighScores VALUES (?, ?, ?, ?, ?,  ?, ?, ?, ?, ?,  ?, ?, ?, ?, ?,  ?);");
         $stmt->execute([
             $currentScoreId,
+            $_POST['h'],
             date(DATE_ISO8601),
             $_SERVER['REMOTE_ADDR'],
             $_POST['t'],
@@ -75,7 +78,7 @@ header('Content-Type: application/json');
 
 if ($_REQUEST['l'])
 {
-    $stmt = $pdo->prepare("SELECT (CASE Id WHEN ? THEN 1 ELSE 0 END) AS IsMyScore, TimeToFinish, Upg0, Upg1, Upg2, Upg3, Upg4, Upg5, Upg6, Upg7, Upg8, Upg9 FROM HighScores WHERE LevelName = ? ORDER BY TimeToFinish ASC;");
+    $stmt = $pdo->prepare("SELECT (CASE Id WHEN ? THEN 1 ELSE 0 END) AS IsMyScore, Health, TimeToFinish, Upg0, Upg1, Upg2, Upg3, Upg4, Upg5, Upg6, Upg7, Upg8, Upg9 FROM HighScores WHERE LevelName = ? ORDER BY TimeToFinish ASC LIMIT 10;");
 
     $stmt->execute([$currentScoreId, $_REQUEST['l']]);
 
