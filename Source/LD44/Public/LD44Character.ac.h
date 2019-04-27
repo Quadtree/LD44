@@ -113,6 +113,7 @@ void ALD44Character::SetUpgradeCost(float value){ UpgradeCost = value; }
 #include "Engine/EngineTypes.h"
 #include "Components/InputComponent.h"
 #include "GameFramework/Pawn.h"
+#include "Public/UpgradeType.h"
 #include "Math/UnrealMathUtility.h"
 #include "Containers/UnrealString.h"
 #include "GameFramework/Actor.h"

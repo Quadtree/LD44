@@ -245,6 +245,34 @@ void fun::UpgradeMovementSpeed()
 	}
 }
 
+int32 fun::GetUpgradeLevel(EUpgradeType type)
+{
+	switch (type)
+	{
+	case EUpgradeType::UT_PrimaryFire: return UpgradeLevelPrimaryFire;
+	case EUpgradeType::UT_AltFire: return UpgradeLevelAltFire;
+	case EUpgradeType::UT_EnergyRegeneration: return UpgradeLevelEnergyRegeneration;
+	case EUpgradeType::UT_Armor: return UpgradeLevelArmor;
+	case EUpgradeType::UT_Jumping: return UpgradeLevelJumping;
+	case EUpgradeType::UT_MovementSpeed: return UpgradeLevelMovementSpeed;
+	}
+
+	return -1;
+}
+
+void fun::SetUpgradeLevel(EUpgradeType type, int32 level)
+{
+	switch (type)
+	{
+	case EUpgradeType::UT_PrimaryFire: UpgradeLevelPrimaryFire = level; return;
+	case EUpgradeType::UT_AltFire: UpgradeLevelAltFire = level; return;
+	case EUpgradeType::UT_EnergyRegeneration: UpgradeLevelEnergyRegeneration = level; return;
+	case EUpgradeType::UT_Armor: UpgradeLevelArmor = level; return;
+	case EUpgradeType::UT_Jumping: UpgradeLevelJumping = level; return;
+	case EUpgradeType::UT_MovementSpeed: UpgradeLevelMovementSpeed = level; return;
+	}
+}
+
 void fun::PrimaryFireAxis(float axisValue)
 {
 	SetIsPrimaryFiring(axisValue > 0.5f);

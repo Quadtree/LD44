@@ -6,6 +6,7 @@
 #include "UObject/NoExportTypes.h"
 #include "LD44.h"
 #include "Engine/EngineTypes.h"
+#include "Public/UpgradeType.h"
 #include "Engine/EngineBaseTypes.h"
 #include "LD44Character.generated.h"
 
@@ -173,6 +174,12 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void UpgradeMovementSpeed();
+
+	UFUNCTION(BlueprintPure)
+	int32 GetUpgradeLevel(EUpgradeType type);
+
+	UFUNCTION(BlueprintCallable)
+	void SetUpgradeLevel(EUpgradeType type, int32 level);
 
 	UFUNCTION(BlueprintCallable)
 	void PrimaryFireAxis(float axisValue);
