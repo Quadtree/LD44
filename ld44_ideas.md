@@ -59,9 +59,9 @@ Note that it will NOT reset the level timer, so try not to die.
 - Make basic enemy fire at player and move
 - Add in energy
 - Add in all upgrades
+- Add in level timer
 
 ### TODO
-- Add in level timer
 - Add in checkpoints
 - Create melee enemy
 - Create boss enemy
