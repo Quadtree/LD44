@@ -53,6 +53,13 @@ void fun::Tick(float deltaTime)
 						ai->StopMovement();
 					}
 				}
+				else
+				{
+					if (auto ai = Cast<AAIController>(GetController()))
+					{
+						ai->MoveToActor(player);
+					}
+				}
 			}
 			else
 			{
@@ -105,6 +112,15 @@ void fun::Tick(float deltaTime)
 				{
 					prj->SetDamageOnHit(AttackDamage);
 				}
+			}
+		}
+		else if (player && !GetWorld()->LineTraceTestByChannel(GetActorLocation(), playerPos, ECollisionChannel::ECC_Visibility) && FVector::Dist(GetActorLocation(), playerPos) <= NonProjectileAttackRange)
+		{
+			if (AttackCharge >= AttackDelay)
+			{
+				AttackCharge = 0;
+
+				player->TakeDamage(AttackDamage, FDamageEvent(), GetController(), this);
 			}
 		}
 	}
