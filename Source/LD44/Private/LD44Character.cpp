@@ -17,6 +17,7 @@ prop(float BaseTurnRate)
 prop(float BaseLookUpRate)
 prop(FVector GunOffset)
 prop(TSubclassOf<class ALD44Projectile> ProjectileClass)
+prop(TSubclassOf<class ALD44Projectile> AltProjectileClass)
 prop(USoundBase* FireSound)
 prop(UAnimMontage* FireAnimation)
 prop(bare private uint32 bUsingMotionControllers)
@@ -128,6 +129,7 @@ void fun::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 
 	// Bind fire event
 	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ALD44Character::OnFire);
+	PlayerInputComponent->BindAction("AltFire", IE_Pressed, this, &ALD44Character::OnAltFire);
 
 	// Enable touchscreen input
 	EnableTouchscreenMovement(PlayerInputComponent);
@@ -150,7 +152,7 @@ void fun::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 void fun::OnFire()
 {
 	// try and fire a projectile
-	if (ProjectileClass != NULL)
+	/*if (ProjectileClass != NULL)
 	{
 		UWorld* const World = GetWorld();
 		if (World != NULL)
@@ -192,6 +194,36 @@ void fun::OnFire()
 		{
 			AnimInstance->Montage_Play(FireAnimation, 1.f);
 		}
+	}*/
+
+	DoFire("LeftGun", ProjectileClass);
+}
+
+void fun::OnAltFire()
+{
+	DoFire("RightGun", AltProjectileClass);
+}
+
+mods(private) void fun::DoFire(FString gunTag, const TSubclassOf<AActor>& projectileClassArg)
+{
+	if (projectileClassArg)
+	{
+		auto comps = GetComponentsByTag(USceneComponent::StaticClass(), *gunTag);
+		if (comps.Num())
+		{
+			auto sc = Cast<USceneComponent>(comps[0]);
+			FVector spawnPos = sc->GetComponentLocation() + sc->GetComponentRotation().RotateVector(FVector(50, 0, 0));
+
+			GetWorld()->SpawnActor<AActor>(projectileClassArg, spawnPos, sc->GetComponentRotation());
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Can't find gun with tag %s"), *gunTag);
+		}
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No projectile class!"));
 	}
 }
 

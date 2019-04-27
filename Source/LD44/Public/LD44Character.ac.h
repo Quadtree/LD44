@@ -34,11 +34,14 @@ FVector ALD44Character::GetGunOffset(){ return GunOffset; }
 void ALD44Character::SetGunOffset(FVector value){ GunOffset = value; }
 TSubclassOf<class ALD44Projectile> ALD44Character::GetProjectileClass(){ return ProjectileClass; }
 void ALD44Character::SetProjectileClass(TSubclassOf<class ALD44Projectile> value){ ProjectileClass = value; }
+TSubclassOf<class ALD44Projectile> ALD44Character::GetAltProjectileClass(){ return AltProjectileClass; }
+void ALD44Character::SetAltProjectileClass(TSubclassOf<class ALD44Projectile> value){ AltProjectileClass = value; }
 USoundBase* ALD44Character::GetFireSound(){ return FireSound; }
 void ALD44Character::SetFireSound(USoundBase* value){ FireSound = value; }
 UAnimMontage* ALD44Character::GetFireAnimation(){ return FireAnimation; }
 void ALD44Character::SetFireAnimation(UAnimMontage* value){ FireAnimation = value; }
 
+#include "LD44.h"
 #include "GameFramework/Character.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/SceneComponent.h"
@@ -57,6 +60,8 @@ void ALD44Character::SetFireAnimation(UAnimMontage* value){ FireAnimation = valu
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
 #include "Animation/AnimInstance.h"
+#include "Containers/UnrealString.h"
+#include "GameFramework/Actor.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "GameFramework/InputSettings.h"
 #include "Engine/EngineBaseTypes.h"

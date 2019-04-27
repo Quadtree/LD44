@@ -4,6 +4,7 @@
 #include "GameFramework/Character.h"
 #include "UObject/NoExportTypes.h"
 #include "UObject/NoExportTypes.h"
+#include "LD44.h"
 #include "Engine/EngineTypes.h"
 #include "Engine/EngineBaseTypes.h"
 #include "LD44Character.generated.h"
@@ -49,6 +50,9 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetProjectileClass, BlueprintSetter=SetProjectileClass)
 	TSubclassOf<class ALD44Projectile> ProjectileClass;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetAltProjectileClass, BlueprintSetter=SetAltProjectileClass)
+	TSubclassOf<class ALD44Projectile> AltProjectileClass;
+
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetFireSound, BlueprintSetter=SetFireSound)
 	class USoundBase* FireSound;
 
@@ -56,6 +60,9 @@ private:
 	class UAnimMontage* FireAnimation;
 
 	uint32 bUsingMotionControllers;
+
+	UFUNCTION()
+	void DoFire(FString gunTag, const TSubclassOf<AActor>& projectileClassArg);
 
 public:
 	ALD44Character();
@@ -67,6 +74,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void OnFire();
+
+	UFUNCTION(BlueprintCallable)
+	void OnAltFire();
 
 	UFUNCTION(BlueprintCallable)
 	void OnResetVR();
@@ -157,6 +167,12 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetProjectileClass(TSubclassOf<class ALD44Projectile> value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	TSubclassOf<class ALD44Projectile>  GetAltProjectileClass();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetAltProjectileClass(TSubclassOf<class ALD44Projectile> value);
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	class USoundBase* GetFireSound();
