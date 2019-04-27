@@ -8,6 +8,7 @@
 #include "UObject/NoExportTypes.h"
 #include "LD44.h"
 #include "Public/UpgradeType.h"
+#include "Templates/SharedPointerInternals.h"
 #include "Engine/EngineTypes.h"
 #include "LD44GameMode.generated.h"
 
@@ -63,6 +64,8 @@ private:
 
 public:
 	ALD44GameMode();
+
+	void HighScoresReceived(TSharedPtr<class IHttpRequest> req, TSharedPtr<class IHttpResponse, ESPMode::ThreadSafe> resp, bool success);
 
 	UFUNCTION(BlueprintCallable)
 	void PlayerWins();
