@@ -58,3 +58,4 @@ void ALD44GameMode::SetLastCheckpointPlayerSubclass(TSubclassOf<ALD44Character> 
 #include "Public/LD44Projectile.h"
 #include "Engine/World.h"
 #include "Engine/EngineTypes.h"
+#include "GameFramework/PlayerController.h"

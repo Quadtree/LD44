@@ -78,7 +78,7 @@ void fun::Tick(float deltaTime)
 			player = *i;
 		}
 
-		if (AttackProjectile)
+		if (AttackProjectile && player)
 		{
 			if (auto ai = Cast<AAIController>(GetController()))
 			{

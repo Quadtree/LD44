@@ -121,3 +121,5 @@ void ALD44Character::SetUpgradeCost(float value){ UpgradeCost = value; }
 #include "GameFramework/InputSettings.h"
 #include "Engine/EngineBaseTypes.h"
 #include "GameFramework/Controller.h"
+#include "Public/LD44GameMode.h"
+#include "Kismet/GameplayStatics.h"

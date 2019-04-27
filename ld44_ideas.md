@@ -60,9 +60,9 @@ Note that it will NOT reset the level timer, so try not to die.
 - Add in energy
 - Add in all upgrades
 - Add in level timer
+- Add in checkpoints
 
 ### TODO
-- Add in checkpoints
 - Create melee enemy
 - Create boss enemy
 - Final graphics for player guns, projectiles, and enemies

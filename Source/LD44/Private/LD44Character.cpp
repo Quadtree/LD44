@@ -403,6 +403,10 @@ float fun::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent
 	if (Health <= 0)
 	{
 		UE_LOG(LogTemp, Display, TEXT("Player has died"));
+
+		Cast<ALD44GameMode>(UGameplayStatics::GetGameMode(this))->PlayerHasDied();
+
+		Destroy();
 	}
 
 	return DamageAmount;

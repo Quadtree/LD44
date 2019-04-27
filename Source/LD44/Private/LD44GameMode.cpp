@@ -52,11 +52,14 @@ void fun::PlayerWins()
 
 void fun::PlayerHasDied()
 {
-
+	Respawning = true;
+	RespawnTimeLeft = 2;
 }
 
 void fun::Checkpoint()
 {
+	UE_LOG(LogTemp, Display, TEXT("Checkpoint!"));
+
 	ALD44Character* pc = nullptr;
 
 	for (TActorIterator<ALD44Character> i(GetWorld()); i; ++i)
@@ -69,7 +72,7 @@ void fun::Checkpoint()
 	{
 		for (int32 i = 0; i < (int32) EUpgradeType::UT_Max; ++i)
 		{
-			LastCheckpointPlayerUpgrades[(EUpgradeType)i] = pc->GetUpgradeLevel((EUpgradeType)i);
+			LastCheckpointPlayerUpgrades.Add((EUpgradeType) i, pc->GetUpgradeLevel((EUpgradeType) i));
 		}
 
 		LastCheckpointPlayerHealth = pc->GetHealth();
@@ -84,9 +87,9 @@ void fun::Checkpoint()
 
 		for (TActorIterator<AEnemyRobot> i(GetWorld()); i; ++i)
 		{
-			LastCheckpointEnemyLocations[i->GetName()] = i->GetActorLocation();
-			LastCheckpointEnemyHealth[i->GetName()] = i->GetHealth();
-			LastCheckpointEnemyType[i->GetName()] = i->GetClass();
+			LastCheckpointEnemyLocations.Add(i->GetName(), i->GetActorLocation());
+			LastCheckpointEnemyHealth.Add(i->GetName(), i->GetHealth());
+			LastCheckpointEnemyType.Add(i->GetName(), i->GetClass());
 		}
 
 		LastCheckpointTime = LevelTime;
@@ -96,6 +99,8 @@ void fun::Checkpoint()
 
 void fun::RestoreCheckpoint()
 {
+	UE_LOG(LogTemp, Display, TEXT("Restoring checkpoint"));
+
 	for (TActorIterator<ALD44Character> i(GetWorld()); i; ++i)
 	{
 		i->Destroy();
@@ -124,13 +129,35 @@ void fun::RestoreCheckpoint()
 
 		pc->SetHealth(LastCheckpointPlayerHealth);
 		pc->SetEnergy(LastCheckpointPlayerEnergy);
-		pc->GetController()->SetControlRotation(LastCheckpointPlayerControlRotation);
+
+		for (TActorIterator<APlayerController> i(GetWorld()); i; ++i)
+		{
+			i->Possess(pc);
+			break;
+		}
+
+		if (pc->GetController())
+		{
+			pc->GetController()->SetControlRotation(LastCheckpointPlayerControlRotation);
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Player doesn't seem to have a controller?"));
+		}
 	}
 
 	for (auto name : LastCheckpointEnemyType)
 	{
 		auto en = GetWorld()->SpawnActor<AEnemyRobot>(name.Value, LastCheckpointEnemyLocations[name.Key], FRotator::ZeroRotator);
-		en->SetHealth(LastCheckpointEnemyHealth[name.Key]);
+		if (en)
+		{
+			en->SpawnDefaultController();
+			en->SetHealth(LastCheckpointEnemyHealth[name.Key]);
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Enemy failed to spawn during checkpoint reload"));
+		}
 	}
 }
 
@@ -152,6 +179,16 @@ void fun::Tick(float deltaTime)
 		if (enemiesLeft == 0)
 		{
 			PlayerWins();
+		}
+	}
+
+	if (Respawning)
+	{
+		RespawnTimeLeft -= deltaTime;
+		if (RespawnTimeLeft <= 0)
+		{
+			Respawning = false;
+			RestoreCheckpoint();
 		}
 	}
 }
