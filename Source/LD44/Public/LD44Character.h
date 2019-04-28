@@ -154,6 +154,9 @@ private:
 	bool DoFire(FString gunTag, const TSubclassOf<AActor>& projectileClassArg, float energyCost, float damage, FLinearColor tintColor);
 
 public:
+	UFUNCTION(BlueprintImplementableEvent)
+	void PrimaryHasFired();
+
 	ALD44Character();
 
 	void BeginPlay() override;

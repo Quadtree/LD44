@@ -58,6 +58,8 @@ prop(float MovementSpeedUpgrade)
 prop(float UpgradeCost)
 prop(int32 MaxUpgradeLevel)
 
+blueprintEvent(PrimaryHasFired)
+
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
 //////////////////////////////////////////////////////////////////////////
@@ -302,7 +304,10 @@ FLinearColor fun::GetTintByUpgradeLevel(int32 upgradeLevel)
 void fun::OnFire()
 {
 	if (DoFire("LeftGun", ProjectileClass, PrimaryFireEnergyCost, PrimaryFireBaseDamage + PrimaryFireUpgradeDamage * UpgradeLevelPrimaryFire, GetTintByUpgradeLevel(UpgradeLevelPrimaryFire)))
+	{
 		PrimaryFireCharge = 0;
+		PrimaryHasFired();
+	}
 }
 
 void fun::OnAltFire()
