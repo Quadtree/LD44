@@ -104,7 +104,7 @@ void fun::Tick(float deltaTime)
 			if (auto a2 = Cast<USceneComponent>(a))
 			{
 				auto rot = (playerPos - a2->GetComponentLocation()).Rotation();
-				UE_LOG(LogTemp, Display, TEXT("%s"), *rot.ToString());
+				//UE_LOG(LogTemp, Display, TEXT("%s"), *rot.ToString());
 				rot.Pitch = 0;
 				rot.Roll = 0;
 				a2->SetWorldLocationAndRotation(
