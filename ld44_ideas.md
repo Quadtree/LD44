@@ -101,4 +101,4 @@ Note that it will NOT reset the level timer, so try not to die.
 - Projectile stuck time
 
 ### TODO
-
+- Rockets sometimes blow firer up
