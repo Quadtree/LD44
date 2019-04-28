@@ -20,6 +20,8 @@ prop(int32 SalvageQuantity)
 
 prop(float AutoAggroTime)
 
+blueprintEvent(DestroyedByDamage)
+
 void fun::Tick(float deltaTime)
 {
 	Super::Tick(deltaTime);
@@ -209,7 +211,7 @@ float fun::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent
 			}
 		}
 
-		// TODO: Enemy explosions
+		DestroyedByDamage();
 
 		Destroy();
 	}

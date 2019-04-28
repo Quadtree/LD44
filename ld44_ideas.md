@@ -85,13 +85,13 @@ Note that it will NOT reset the level timer, so try not to die.
 - Level transitions
 - Held OFF intitial waves
 - Main menu
-
-### TODO
-- Enemy death sound
 - Bolt fire sound
-- Missile fire sound
 - Missile explosion sound
-- Collect salvage sound
 - Upgrade sound
 - Upgrade denied sound
+- Enemy death sound
+- Missile fire sound
+
+### TODO
+- Collect salvage sound
 - Music

@@ -45,6 +45,9 @@ private:
 	float AutoAggroTime;
 
 public:
+	UFUNCTION(BlueprintImplementableEvent)
+	void DestroyedByDamage();
+
 	void Tick(float deltaTime) override;
 
 	float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser) override;

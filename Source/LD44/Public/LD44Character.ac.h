@@ -97,6 +97,12 @@ float ALD44Character::GetUpgradeCost(){ return UpgradeCost; }
 void ALD44Character::SetUpgradeCost(float value){ UpgradeCost = value; }
 int32 ALD44Character::GetMaxUpgradeLevel(){ return MaxUpgradeLevel; }
 void ALD44Character::SetMaxUpgradeLevel(int32 value){ MaxUpgradeLevel = value; }
+USoundBase* ALD44Character::GetDeathSound(){ return DeathSound; }
+void ALD44Character::SetDeathSound(USoundBase* value){ DeathSound = value; }
+USoundBase* ALD44Character::GetUpgradeSuccessful(){ return UpgradeSuccessful; }
+void ALD44Character::SetUpgradeSuccessful(USoundBase* value){ UpgradeSuccessful = value; }
+USoundBase* ALD44Character::GetUpgradeFailed(){ return UpgradeFailed; }
+void ALD44Character::SetUpgradeFailed(USoundBase* value){ UpgradeFailed = value; }
 
 #include "LD44.h"
 #include "GameFramework/Character.h"
@@ -115,6 +121,7 @@ void ALD44Character::SetMaxUpgradeLevel(int32 value){ MaxUpgradeLevel = value; }
 #include "Components/InputComponent.h"
 #include "GameFramework/Pawn.h"
 #include "Public/UpgradeType.h"
+#include "Kismet/GameplayStatics.h"
 #include "Math/UnrealMathUtility.h"
 #include "Containers/UnrealString.h"
 #include "GameFramework/Actor.h"
@@ -123,4 +130,3 @@ void ALD44Character::SetMaxUpgradeLevel(int32 value){ MaxUpgradeLevel = value; }
 #include "Engine/EngineBaseTypes.h"
 #include "GameFramework/Controller.h"
 #include "Public/LD44GameMode.h"
-#include "Kismet/GameplayStatics.h"

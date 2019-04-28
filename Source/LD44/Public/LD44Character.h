@@ -150,12 +150,24 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetMaxUpgradeLevel, BlueprintSetter=SetMaxUpgradeLevel)
 	int32 MaxUpgradeLevel;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetDeathSound, BlueprintSetter=SetDeathSound)
+	class USoundBase* DeathSound;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetUpgradeSuccessful, BlueprintSetter=SetUpgradeSuccessful)
+	class USoundBase* UpgradeSuccessful;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetUpgradeFailed, BlueprintSetter=SetUpgradeFailed)
+	class USoundBase* UpgradeFailed;
+
 	UFUNCTION()
 	bool DoFire(FString gunTag, const TSubclassOf<AActor>& projectileClassArg, float energyCost, float damage, FLinearColor tintColor);
 
 public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void PrimaryHasFired();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void DestroyedByDamage();
 
 	ALD44Character();
 
@@ -491,5 +503,23 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetMaxUpgradeLevel(int32 value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	class USoundBase* GetDeathSound();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetDeathSound(class USoundBase* value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	class USoundBase* GetUpgradeSuccessful();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetUpgradeSuccessful(class USoundBase* value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	class USoundBase* GetUpgradeFailed();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetUpgradeFailed(class USoundBase* value);
 
 };

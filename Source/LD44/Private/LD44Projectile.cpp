@@ -11,6 +11,9 @@ prop(float DamageOnHit)
 prop(FLinearColor TintColor)
 prop(float BlastRadius)
 
+prop(USoundBase* FireSound)
+prop(USoundBase* HitSound)
+
 blueprintEvent(ColorChanged)
 
 fun::ALD44Projectile() 
@@ -38,6 +41,13 @@ fun::ALD44Projectile()
 
 	// Die after 3 seconds by default
 	InitialLifeSpan = 3.0f;
+}
+
+void fun::BeginPlay()
+{
+	Super::BeginPlay();
+
+	UGameplayStatics::PlaySound2D(this, FireSound);
 }
 
 void fun::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
@@ -78,6 +88,7 @@ void fun::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComp
 	}
 
 	Destroy();
+	UGameplayStatics::PlaySound2D(this, HitSound);
 }
 
 void fun::SetTintColor(FLinearColor value)

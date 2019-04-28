@@ -58,7 +58,12 @@ prop(float MovementSpeedUpgrade)
 prop(float UpgradeCost)
 prop(int32 MaxUpgradeLevel)
 
+prop(USoundBase* DeathSound)
+prop(USoundBase* UpgradeSuccessful)
+prop(USoundBase* UpgradeFailed)
+
 blueprintEvent(PrimaryHasFired)
+blueprintEvent(DestroyedByDamage)
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -226,10 +231,15 @@ void fun::UpgradeMovementSpeed()
 
 void fun::Upgrade(EUpgradeType type)
 {
-	if (Health >= UpgradeCost && GetUpgradeLevel(type) < MaxUpgradeLevel)
+	if (Health >= UpgradeCost+1 && GetUpgradeLevel(type) < MaxUpgradeLevel)
 	{
 		SetUpgradeLevel(type, GetUpgradeLevel(type) + 1);
 		Health -= UpgradeCost;
+		UGameplayStatics::PlaySoundAtLocation(this, UpgradeSuccessful, GetActorLocation());
+	}
+	else
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, UpgradeFailed, GetActorLocation());
 	}
 }
 
@@ -417,6 +427,10 @@ float fun::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent
 		Cast<ALD44GameMode>(UGameplayStatics::GetGameMode(this))->PlayerHasDied();
 
 		Destroy();
+
+		DestroyedByDamage();
+
+		UGameplayStatics::PlaySoundAtLocation(this, DeathSound, GetActorLocation());
 	}
 
 	return DamageAmount;

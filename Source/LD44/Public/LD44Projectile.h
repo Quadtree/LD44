@@ -27,11 +27,19 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetBlastRadius, BlueprintSetter=SetBlastRadius)
 	float BlastRadius;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetFireSound, BlueprintSetter=SetFireSound)
+	class USoundBase* FireSound;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetHitSound, BlueprintSetter=SetHitSound)
+	class USoundBase* HitSound;
+
 public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void ColorChanged();
 
 	ALD44Projectile();
+
+	void BeginPlay() override;
 
 	UFUNCTION(BlueprintCallable)
 	void OnHit(class UPrimitiveComponent* HitComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
@@ -65,5 +73,17 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetBlastRadius(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	class USoundBase* GetFireSound();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetFireSound(class USoundBase* value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	class USoundBase* GetHitSound();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetHitSound(class USoundBase* value);
 
 };
