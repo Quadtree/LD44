@@ -85,6 +85,7 @@ Note that it will NOT reset the level timer, so try not to die.
 - Level transitions
 
 ### TODO
+- Held OFF intitial waves
 - Main menu
 - Sound effects
 - Music
