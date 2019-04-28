@@ -91,7 +91,7 @@ Note that it will NOT reset the level timer, so try not to die.
 - Upgrade denied sound
 - Enemy death sound
 - Missile fire sound
+- Collect salvage sound
 
 ### TODO
-- Collect salvage sound
 - Music
