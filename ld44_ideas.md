@@ -96,7 +96,7 @@ Note that it will NOT reset the level timer, so try not to die.
 - fix graphics in level 3
 - Fix bouncing projectiles issue
 - Change salvage pickup sound
+- Fix force field in level 3
 
 ### TODO
-Fix force field in level 3
 Fix unwinnable issue in level 2
