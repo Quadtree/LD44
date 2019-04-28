@@ -64,6 +64,7 @@ prop(USoundBase* UpgradeFailed)
 
 blueprintEvent(PrimaryHasFired)
 blueprintEvent(DestroyedByDamage)
+blueprintEvent(SalvagePickedUp)
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 

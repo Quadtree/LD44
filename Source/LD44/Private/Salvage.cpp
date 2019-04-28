@@ -25,6 +25,7 @@ void fun::OnHit(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UP
 	if (auto pc = Cast<ALD44Character>(OtherActor))
 	{
 		pc->SetHealth(pc->GetHealth() + HealthBonus);
+		pc->SalvagePickedUp();
 		HealthBonus = 0;
 		Destroy();
 	}

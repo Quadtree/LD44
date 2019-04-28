@@ -169,6 +169,9 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void DestroyedByDamage();
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void SalvagePickedUp();
+
 	ALD44Character();
 
 	void BeginPlay() override;
