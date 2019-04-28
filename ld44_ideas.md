@@ -83,9 +83,9 @@ Note that it will NOT reset the level timer, so try not to die.
 - Player gun graphics
 - Correct player HUD
 - Level transitions
-
-### TODO
 - Held OFF intitial waves
 - Main menu
+
+### TODO
 - Sound effects
 - Music
