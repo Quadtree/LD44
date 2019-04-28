@@ -82,9 +82,9 @@ Note that it will NOT reset the level timer, so try not to die.
 - Some kind of crosshair
 - Player gun graphics
 - Correct player HUD
+- Level transitions
 
 ### TODO
-- Level transitions
 - Main menu
 - Sound effects
 - Music
