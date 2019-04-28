@@ -32,6 +32,8 @@ TSubclassOf<ASalvage> AEnemyRobot::GetSalvageClass(){ return SalvageClass; }
 void AEnemyRobot::SetSalvageClass(TSubclassOf<ASalvage> value){ SalvageClass = value; }
 int32 AEnemyRobot::GetSalvageQuantity(){ return SalvageQuantity; }
 void AEnemyRobot::SetSalvageQuantity(int32 value){ SalvageQuantity = value; }
+float AEnemyRobot::GetAutoAggroTime(){ return AutoAggroTime; }
+void AEnemyRobot::SetAutoAggroTime(float value){ AutoAggroTime = value; }
 
 #include "LD44.h"
 #include "GameFramework/Character.h"

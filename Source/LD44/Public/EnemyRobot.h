@@ -41,6 +41,9 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetSalvageQuantity, BlueprintSetter=SetSalvageQuantity)
 	int32 SalvageQuantity;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetAutoAggroTime, BlueprintSetter=SetAutoAggroTime)
+	float AutoAggroTime;
+
 public:
 	void Tick(float deltaTime) override;
 
@@ -111,5 +114,11 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetSalvageQuantity(int32 value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetAutoAggroTime();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetAutoAggroTime(float value);
 
 };

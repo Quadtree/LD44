@@ -16,7 +16,6 @@ Build/*NoEditor
 Build/HTML5
 .vs
 .prebuild.cache
-Source/TheShankening3D/Public
 CookerOpenOrder.log
 
 !Screenshots

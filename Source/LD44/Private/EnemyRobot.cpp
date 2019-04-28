@@ -18,6 +18,8 @@ prop(float Health)
 prop(TSubclassOf<ASalvage> SalvageClass)
 prop(int32 SalvageQuantity)
 
+prop(float AutoAggroTime)
+
 void fun::Tick(float deltaTime)
 {
 	Super::Tick(deltaTime);
@@ -163,6 +165,15 @@ void fun::Tick(float deltaTime)
 
 				player->TakeDamage(AttackDamage, FDamageEvent(), GetController(), this);
 			}
+		}
+	}
+
+	if (AutoAggroTime > 0)
+	{
+		AutoAggroTime -= deltaTime;
+		if (AutoAggroTime <= 0)
+		{
+			Aggro = 100000;
 		}
 	}
 }
