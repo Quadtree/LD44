@@ -45,12 +45,12 @@ void fun::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComp
 	if (OtherActor == GetInstigator()) return;
 
 	// Only add impulse and destroy projectile if we hit a physics
-	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
+	/*if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
 	{
 		OtherComp->AddImpulseAtLocation(GetVelocity() * 500.0f, GetActorLocation());
 
 		Destroy();
-	}
+	}*/
 
 	if (BlastRadius <= 0)
 	{

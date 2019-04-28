@@ -74,10 +74,10 @@ Note that it will NOT reset the level timer, so try not to die.
 - Melee enemy graphics
 - Player projectile graphics
 - Max upgrade levels (max level is 4)
-
-### TODO
 - VFX for missiles
 - VFX for enemy death
+
+### TODO
 - Salvage graphic
 - Level 2 auto-checkpoints
 - Fix auto aggro + checkpoints
