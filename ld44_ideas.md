@@ -76,9 +76,9 @@ Note that it will NOT reset the level timer, so try not to die.
 - Max upgrade levels (max level is 4)
 - VFX for missiles
 - VFX for enemy death
+- Salvage graphic
 
 ### TODO
-- Salvage graphic
 - Level 2 auto-checkpoints
 - Fix auto aggro + checkpoints
 - Player gun graphics
