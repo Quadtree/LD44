@@ -147,6 +147,9 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetUpgradeCost, BlueprintSetter=SetUpgradeCost)
 	float UpgradeCost;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetMaxUpgradeLevel, BlueprintSetter=SetMaxUpgradeLevel)
+	int32 MaxUpgradeLevel;
+
 	UFUNCTION()
 	bool DoFire(FString gunTag, const TSubclassOf<AActor>& projectileClassArg, float energyCost, float damage, FLinearColor tintColor);
 
@@ -175,6 +178,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void UpgradeMovementSpeed();
+
+	UFUNCTION(BlueprintCallable)
+	void Upgrade(EUpgradeType type);
 
 	UFUNCTION(BlueprintPure)
 	int32 GetUpgradeLevel(EUpgradeType type);
@@ -476,5 +482,11 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetUpgradeCost(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	int32 GetMaxUpgradeLevel();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetMaxUpgradeLevel(int32 value);
 
 };

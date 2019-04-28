@@ -56,6 +56,7 @@ prop(float MovementSpeedBase)
 prop(float MovementSpeedUpgrade)
 
 prop(float UpgradeCost)
+prop(int32 MaxUpgradeLevel)
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -193,54 +194,39 @@ void fun::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 
 void fun::UpgradePrimaryFire()
 {
-	if (Health >= UpgradeCost)
-	{
-		UpgradeLevelPrimaryFire++;
-		Health -= UpgradeCost;
-	}
+	Upgrade(EUpgradeType::UT_PrimaryFire);
 }
 
 void fun::UpgradeAltFire()
 {
-	if (Health >= UpgradeCost)
-	{
-		UpgradeLevelAltFire++;
-		Health -= UpgradeCost;
-	}
+	Upgrade(EUpgradeType::UT_AltFire);
 }
 
 void fun::UpgradeEnergyRegeneration()
 {
-	if (Health >= UpgradeCost)
-	{
-		UpgradeLevelEnergyRegeneration++;
-		Health -= UpgradeCost;
-	}
+	Upgrade(EUpgradeType::UT_EnergyRegeneration);
 }
 
 void fun::UpgradeArmor()
 {
-	if (Health >= UpgradeCost)
-	{
-		UpgradeLevelArmor++;
-		Health -= UpgradeCost;
-	}
+	Upgrade(EUpgradeType::UT_Armor);
 }
 
 void fun::UpgradeJumping()
 {
-	if (Health >= UpgradeCost)
-	{
-		UpgradeLevelJumping++;
-		Health -= UpgradeCost;
-	}
+	Upgrade(EUpgradeType::UT_Jumping);
 }
 
 void fun::UpgradeMovementSpeed()
 {
-	if (Health >= UpgradeCost)
+	Upgrade(EUpgradeType::UT_MovementSpeed);
+}
+
+void fun::Upgrade(EUpgradeType type)
+{
+	if (Health >= UpgradeCost && GetUpgradeLevel(type) < MaxUpgradeLevel)
 	{
-		UpgradeLevelMovementSpeed++;
+		SetUpgradeLevel(type, GetUpgradeLevel(type) + 1);
 		Health -= UpgradeCost;
 	}
 }

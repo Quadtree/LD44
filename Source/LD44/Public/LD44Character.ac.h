@@ -95,6 +95,8 @@ float ALD44Character::GetMovementSpeedUpgrade(){ return MovementSpeedUpgrade; }
 void ALD44Character::SetMovementSpeedUpgrade(float value){ MovementSpeedUpgrade = value; }
 float ALD44Character::GetUpgradeCost(){ return UpgradeCost; }
 void ALD44Character::SetUpgradeCost(float value){ UpgradeCost = value; }
+int32 ALD44Character::GetMaxUpgradeLevel(){ return MaxUpgradeLevel; }
+void ALD44Character::SetMaxUpgradeLevel(int32 value){ MaxUpgradeLevel = value; }
 
 #include "LD44.h"
 #include "GameFramework/Character.h"
