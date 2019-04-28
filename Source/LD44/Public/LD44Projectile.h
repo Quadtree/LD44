@@ -4,6 +4,7 @@
 #include "GameFramework/Actor.h"
 #include "UObject/NoExportTypes.h"
 #include "UObject/NoExportTypes.h"
+#include "Engine/EngineTypes.h"
 #include "LD44Projectile.generated.h"
 
 UCLASS()
@@ -22,6 +23,9 @@ private:
 
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetTintColor, BlueprintSetter=SetTintColor)
 	FLinearColor TintColor;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetBlastRadius, BlueprintSetter=SetBlastRadius)
+	float BlastRadius;
 
 public:
 	UFUNCTION(BlueprintImplementableEvent)
@@ -55,5 +59,11 @@ public:
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	FLinearColor GetTintColor();
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetBlastRadius();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetBlastRadius(float value);
 
 };

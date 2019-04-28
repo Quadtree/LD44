@@ -9,6 +9,7 @@ prop(USphereComponent* CollisionComp)
 prop(UProjectileMovementComponent* ProjectileMovement)
 prop(float DamageOnHit)
 prop(FLinearColor TintColor)
+prop(float BlastRadius)
 
 blueprintEvent(ColorChanged)
 
@@ -51,13 +52,29 @@ void fun::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComp
 		Destroy();
 	}
 
-	FPointDamageEvent pt;
-	pt.Damage = DamageOnHit;
-	pt.ShotDirection = GetActorRotation().RotateVector(FVector(1,0,0));
-
-	if (OtherActor)
+	if (BlastRadius <= 0)
 	{
-		OtherActor->TakeDamage(DamageOnHit, pt, GetInstigatorController(), this);
+		if (OtherActor)
+		{
+			FPointDamageEvent pt;
+			pt.Damage = DamageOnHit;
+			pt.ShotDirection = GetActorRotation().RotateVector(FVector(1, 0, 0));
+
+			OtherActor->TakeDamage(DamageOnHit, pt, GetInstigatorController(), this);
+		}
+	}
+	else
+	{
+		TArray<FOverlapResult> res;
+		GetWorld()->OverlapMultiByChannel(res, GetActorLocation(), FQuat::Identity, ECollisionChannel::ECC_WorldDynamic, FCollisionShape::MakeSphere(BlastRadius));
+
+		for (auto a : res)
+		{
+			if (a.Actor.Get())
+			{
+				a.Actor->TakeDamage(DamageOnHit, FDamageEvent(), GetInstigatorController(), this);
+			}
+		}
 	}
 
 	Destroy();

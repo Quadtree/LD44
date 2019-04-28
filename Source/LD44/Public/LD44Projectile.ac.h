@@ -17,6 +17,8 @@ void ALD44Projectile::SetProjectileMovement(UProjectileMovementComponent* value)
 float ALD44Projectile::GetDamageOnHit(){ return DamageOnHit; }
 void ALD44Projectile::SetDamageOnHit(float value){ DamageOnHit = value; }
 FLinearColor ALD44Projectile::GetTintColor(){ return TintColor; }
+float ALD44Projectile::GetBlastRadius(){ return BlastRadius; }
+void ALD44Projectile::SetBlastRadius(float value){ BlastRadius = value; }
 
 #include "GameFramework/Actor.h"
 #include "Components/SphereComponent.h"
@@ -25,3 +27,4 @@ FLinearColor ALD44Projectile::GetTintColor(){ return TintColor; }
 #include "Public/LD44Projectile.h"
 #include "Engine/EngineTypes.h"
 #include "Components/PrimitiveComponent.h"
+#include "WorldCollision.h"
