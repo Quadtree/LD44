@@ -299,19 +299,33 @@ void fun::Tick(float deltaTime)
 	if (IsAltFiring && AltFireCharge >= AltFireShotDelay) OnAltFire();
 }
 
+FLinearColor fun::GetTintByUpgradeLevel(int32 upgradeLevel)
+{
+	switch (upgradeLevel)
+	{
+	case 0: return FLinearColor(1, 0, 0);
+	case 1: return FLinearColor(1, 1, 0);
+	case 2: return FLinearColor(0, 1, 0);
+	case 3: return FLinearColor(0, 0, 1);
+	case 4: return FLinearColor(0, 1, 1);
+	}
+
+	return FLinearColor(1, 1, 1);
+}
+
 void fun::OnFire()
 {
-	if (DoFire("LeftGun", ProjectileClass, PrimaryFireEnergyCost, PrimaryFireBaseDamage + PrimaryFireUpgradeDamage * UpgradeLevelPrimaryFire))
+	if (DoFire("LeftGun", ProjectileClass, PrimaryFireEnergyCost, PrimaryFireBaseDamage + PrimaryFireUpgradeDamage * UpgradeLevelPrimaryFire, GetTintByUpgradeLevel(UpgradeLevelPrimaryFire)))
 		PrimaryFireCharge = 0;
 }
 
 void fun::OnAltFire()
 {
-	if (DoFire("RightGun", AltProjectileClass, AltFireEnergyCost, AltFireBaseDamage + AltFireUpgradeDamage * UpgradeLevelAltFire))
+	if (DoFire("RightGun", AltProjectileClass, AltFireEnergyCost, AltFireBaseDamage + AltFireUpgradeDamage * UpgradeLevelAltFire, GetTintByUpgradeLevel(UpgradeLevelAltFire)))
 		AltFireCharge = 0;
 }
 
-mods(private) bool fun::DoFire(FString gunTag, const TSubclassOf<AActor>& projectileClassArg, float energyCost, float damage)
+mods(private) bool fun::DoFire(FString gunTag, const TSubclassOf<AActor>& projectileClassArg, float energyCost, float damage, FLinearColor tintColor)
 {
 	if (Energy >= energyCost)
 	{
@@ -328,6 +342,7 @@ mods(private) bool fun::DoFire(FString gunTag, const TSubclassOf<AActor>& projec
 				if (prj)
 				{
 					prj->SetDamageOnHit(damage);
+					prj->SetTintColor(tintColor);
 				}
 			}
 			else

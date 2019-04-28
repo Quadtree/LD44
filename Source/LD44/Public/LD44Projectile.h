@@ -2,6 +2,8 @@
 
 #include "EngineMinimal.h"
 #include "GameFramework/Actor.h"
+#include "UObject/NoExportTypes.h"
+#include "UObject/NoExportTypes.h"
 #include "LD44Projectile.generated.h"
 
 UCLASS()
@@ -18,11 +20,20 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetDamageOnHit, BlueprintSetter=SetDamageOnHit)
 	float DamageOnHit;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetTintColor, BlueprintSetter=SetTintColor)
+	FLinearColor TintColor;
+
 public:
+	UFUNCTION(BlueprintImplementableEvent)
+	void ColorChanged();
+
 	ALD44Projectile();
 
 	UFUNCTION(BlueprintCallable)
 	void OnHit(class UPrimitiveComponent* HitComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+
+	UFUNCTION(BlueprintCallable)
+	void SetTintColor(FLinearColor value);
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
 	class USphereComponent* GetCollisionComp();
@@ -41,5 +52,8 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetDamageOnHit(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	FLinearColor GetTintColor();
 
 };

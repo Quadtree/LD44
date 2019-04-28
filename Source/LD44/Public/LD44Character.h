@@ -4,6 +4,7 @@
 #include "GameFramework/Character.h"
 #include "UObject/NoExportTypes.h"
 #include "UObject/NoExportTypes.h"
+#include "UObject/NoExportTypes.h"
 #include "LD44.h"
 #include "Engine/EngineTypes.h"
 #include "Public/UpgradeType.h"
@@ -147,7 +148,7 @@ private:
 	float UpgradeCost;
 
 	UFUNCTION()
-	bool DoFire(FString gunTag, const TSubclassOf<AActor>& projectileClassArg, float energyCost, float damage);
+	bool DoFire(FString gunTag, const TSubclassOf<AActor>& projectileClassArg, float energyCost, float damage, FLinearColor tintColor);
 
 public:
 	ALD44Character();
@@ -188,6 +189,9 @@ public:
 	void AltFireAxis(float axisValue);
 
 	void Tick(float deltaTime) override;
+
+	UFUNCTION(BlueprintPure)
+	FLinearColor GetTintByUpgradeLevel(int32 upgradeLevel);
 
 	UFUNCTION(BlueprintCallable)
 	void OnFire();

@@ -75,6 +75,7 @@ Note that it will NOT reset the level timer, so try not to die.
 
 ### TODO
 - Player projectile graphics
+- Max upgrade levels
 - Player gun graphics
 - Correct player HUD
 - Level transitions

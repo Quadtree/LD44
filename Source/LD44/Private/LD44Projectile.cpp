@@ -8,6 +8,9 @@ extends(AActor)
 prop(USphereComponent* CollisionComp)
 prop(UProjectileMovementComponent* ProjectileMovement)
 prop(float DamageOnHit)
+prop(FLinearColor TintColor)
+
+blueprintEvent(ColorChanged)
 
 fun::ALD44Projectile() 
 {
@@ -58,4 +61,10 @@ void fun::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComp
 	}
 
 	Destroy();
+}
+
+void fun::SetTintColor(FLinearColor value)
+{
+	TintColor = value;
+	ColorChanged();
 }
