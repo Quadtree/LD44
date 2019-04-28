@@ -267,4 +267,9 @@ void fun::Tick(float deltaTime)
 			RestoreCheckpoint();
 		}
 	}
+
+	if (!LastCheckpointPlayerSubclass)
+	{
+		Checkpoint();
+	}
 }

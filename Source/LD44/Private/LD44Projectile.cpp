@@ -52,7 +52,10 @@ void fun::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComp
 	pt.Damage = DamageOnHit;
 	pt.ShotDirection = GetActorRotation().RotateVector(FVector(1,0,0));
 
-	OtherActor->TakeDamage(DamageOnHit, pt, GetInstigatorController(), this);
+	if (OtherActor)
+	{
+		OtherActor->TakeDamage(DamageOnHit, pt, GetInstigatorController(), this);
+	}
 
 	Destroy();
 }
