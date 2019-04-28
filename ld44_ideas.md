@@ -72,10 +72,13 @@ Note that it will NOT reset the level timer, so try not to die.
 - Create level 3
 - Basic enemy graphics
 - Melee enemy graphics
+- Player projectile graphics
 
 ### TODO
-- Player projectile graphics
-- Max upgrade levels
+- Max upgrade levels (max level is 4)
+- VFX for missiles
+- VFX for enemy death
+- Salvage graphic
 - Player gun graphics
 - Correct player HUD
 - Level transitions
