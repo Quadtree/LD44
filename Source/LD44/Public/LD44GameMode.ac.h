@@ -75,6 +75,7 @@ void ALD44GameMode::SetAutoCheckpointCharge(float value){ AutoCheckpointCharge =
 #include "Kismet/GameplayStatics.h"
 #include "HttpModule.h"
 #include "Public/LD44Projectile.h"
+#include "Public/Salvage.h"
 #include "Engine/World.h"
 #include "Engine/EngineTypes.h"
 #include "GameFramework/PlayerController.h"

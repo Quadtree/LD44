@@ -200,6 +200,11 @@ void fun::RestoreCheckpoint()
 		i->Destroy();
 	}
 
+	for (TActorIterator<ASalvage> i(GetWorld()); i; ++i)
+	{
+		i->Destroy();
+	}
+
 	FActorSpawnParameters params;
 	params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
 
