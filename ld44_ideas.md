@@ -69,13 +69,13 @@ Note that it will NOT reset the level timer, so try not to die.
 - Final graphics for player guns, projectiles, and enemies
 - Create level 1
 - Create level 2
+- Create level 3
 
 ### TODO
 - Basic enemy graphics
 - Melee enemy graphics
 - Player gun graphics
 - Correct player HUD
-- Create level 3
 - Level transitions
 - Main menu
 - Sound effects
