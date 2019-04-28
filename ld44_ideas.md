@@ -81,9 +81,9 @@ Note that it will NOT reset the level timer, so try not to die.
 - Fix auto aggro + checkpoints
 - Some kind of crosshair
 - Player gun graphics
+- Correct player HUD
 
 ### TODO
-- Correct player HUD
 - Level transitions
 - Main menu
 - Sound effects
