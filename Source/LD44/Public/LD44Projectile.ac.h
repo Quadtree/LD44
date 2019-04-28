@@ -23,7 +23,10 @@ USoundBase* ALD44Projectile::GetFireSound(){ return FireSound; }
 void ALD44Projectile::SetFireSound(USoundBase* value){ FireSound = value; }
 USoundBase* ALD44Projectile::GetHitSound(){ return HitSound; }
 void ALD44Projectile::SetHitSound(USoundBase* value){ HitSound = value; }
+bool ALD44Projectile::GetSpeedSeen(){ return SpeedSeen; }
+void ALD44Projectile::SetSpeedSeen(bool value){ SpeedSeen = value; }
 
+#include "LD44.h"
 #include "GameFramework/Actor.h"
 #include "Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
@@ -31,6 +34,7 @@ void ALD44Projectile::SetHitSound(USoundBase* value){ HitSound = value; }
 #include "Sound/SoundBase.h"
 #include "Public/LD44Projectile.h"
 #include "Engine/EngineTypes.h"
+#include "Containers/UnrealString.h"
 #include "Kismet/GameplayStatics.h"
 #include "Components/PrimitiveComponent.h"
 #include "WorldCollision.h"

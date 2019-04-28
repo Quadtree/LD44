@@ -4,6 +4,7 @@
 #include "GameFramework/Actor.h"
 #include "UObject/NoExportTypes.h"
 #include "UObject/NoExportTypes.h"
+#include "LD44.h"
 #include "Engine/EngineTypes.h"
 #include "LD44Projectile.generated.h"
 
@@ -33,16 +34,24 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetHitSound, BlueprintSetter=SetHitSound)
 	class USoundBase* HitSound;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetSpeedSeen, BlueprintSetter=SetSpeedSeen)
+	bool SpeedSeen;
+
 public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void ColorChanged();
 
 	ALD44Projectile();
 
+	void Tick(float deltaTime) override;
+
 	void BeginPlay() override;
 
 	UFUNCTION(BlueprintCallable)
 	void OnHit(class UPrimitiveComponent* HitComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+
+	UFUNCTION(BlueprintCallable)
+	void Detonate();
 
 	UFUNCTION(BlueprintCallable)
 	void SetTintColor(FLinearColor value);
@@ -85,5 +94,11 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetHitSound(class USoundBase* value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	bool GetSpeedSeen();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetSpeedSeen(bool value);
 
 };

@@ -14,6 +14,8 @@ prop(float BlastRadius)
 prop(USoundBase* FireSound)
 prop(USoundBase* HitSound)
 
+prop(bool SpeedSeen)
+
 blueprintEvent(ColorChanged)
 
 fun::ALD44Projectile() 
@@ -41,6 +43,18 @@ fun::ALD44Projectile()
 
 	// Die after 3 seconds by default
 	InitialLifeSpan = 3.0f;
+
+	PrimaryActorTick.bCanEverTick = true;
+}
+
+void fun::Tick(float deltaTime)
+{
+	Super::Tick(deltaTime);
+
+	//UE_LOG(LogTemp, Display, TEXT("%s"), *FString::SanitizeFloat(CollisionComp->GetPhysicsLinearVelocity().Size()));
+
+	if (CollisionComp->GetPhysicsLinearVelocity().Size() > 10) SpeedSeen = true;
+	if (CollisionComp->GetPhysicsLinearVelocity().Size() < 10 && SpeedSeen) Detonate();
 }
 
 void fun::BeginPlay()
@@ -73,7 +87,11 @@ void fun::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComp
 			OtherActor->TakeDamage(DamageOnHit, pt, GetInstigatorController(), this);
 		}
 	}
-	else
+}
+
+void fun::Detonate()
+{
+	if (BlastRadius > 0)
 	{
 		TArray<FOverlapResult> res;
 		GetWorld()->OverlapMultiByChannel(res, GetActorLocation(), FQuat::Identity, ECollisionChannel::ECC_WorldDynamic, FCollisionShape::MakeSphere(BlastRadius));
