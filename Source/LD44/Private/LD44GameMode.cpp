@@ -205,6 +205,11 @@ void fun::RestoreCheckpoint()
 		i->Destroy();
 	}
 
+	for (TActorIterator<AActor> i(GetWorld()); i; ++i)
+	{
+		if (i->FindComponentByClass<UParticleSystemComponent>()) i->Destroy();
+	}
+
 	FActorSpawnParameters params;
 	params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
 

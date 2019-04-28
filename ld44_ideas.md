@@ -77,10 +77,10 @@ Note that it will NOT reset the level timer, so try not to die.
 - VFX for missiles
 - VFX for enemy death
 - Salvage graphic
-
-### TODO
 - Level 2 auto-checkpoints
 - Fix auto aggro + checkpoints
+
+### TODO
 - Some kind of crosshair
 - Player gun graphics
 - Correct player HUD
