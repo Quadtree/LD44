@@ -99,6 +99,7 @@ Note that it will NOT reset the level timer, so try not to die.
 - Fix force field in level 3
 - Fix unwinnable issue in level 2
 - Projectile stuck time
+- Rockets sometimes blow firer up
 
 ### TODO
-- Rockets sometimes blow firer up
+

@@ -53,9 +53,10 @@ void fun::Tick(float deltaTime)
 
 	//UE_LOG(LogTemp, Display, TEXT("%s"), *FString::SanitizeFloat(CollisionComp->GetPhysicsLinearVelocity().Size()));
 
+	//ProjectileMovement->Get
 	
-	if (CollisionComp->GetPhysicsLinearVelocity().Size() < 10 && SpeedSeen) Detonate();
-	SpeedSeen = true;
+	//if (CollisionComp->GetPhysicsLinearVelocity().Size() < 10 && SpeedSeen) Detonate();
+	//SpeedSeen = true;
 }
 
 void fun::BeginPlay()
