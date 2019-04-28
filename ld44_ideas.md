@@ -92,6 +92,6 @@ Note that it will NOT reset the level timer, so try not to die.
 - Enemy death sound
 - Missile fire sound
 - Collect salvage sound
+- Music
 
 ### TODO
-- Music
