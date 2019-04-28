@@ -70,10 +70,11 @@ Note that it will NOT reset the level timer, so try not to die.
 - Create level 1
 - Create level 2
 - Create level 3
-
-### TODO
 - Basic enemy graphics
 - Melee enemy graphics
+
+### TODO
+- Player projectile graphics
 - Player gun graphics
 - Correct player HUD
 - Level transitions
