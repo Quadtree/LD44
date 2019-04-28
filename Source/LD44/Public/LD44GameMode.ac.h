@@ -26,6 +26,10 @@ TMap<FString, FVector> ALD44GameMode::GetLastCheckpointEnemyLocations(){ return 
 void ALD44GameMode::SetLastCheckpointEnemyLocations(TMap<FString, FVector> value){ LastCheckpointEnemyLocations = value; }
 TMap<FString, float> ALD44GameMode::GetLastCheckpointEnemyHealth(){ return LastCheckpointEnemyHealth; }
 void ALD44GameMode::SetLastCheckpointEnemyHealth(TMap<FString, float> value){ LastCheckpointEnemyHealth = value; }
+TMap<FString, float> ALD44GameMode::GetLastCheckpointEnemyAggro(){ return LastCheckpointEnemyAggro; }
+void ALD44GameMode::SetLastCheckpointEnemyAggro(TMap<FString, float> value){ LastCheckpointEnemyAggro = value; }
+TMap<FString, float> ALD44GameMode::GetLastCheckpointEnemyAutoAggro(){ return LastCheckpointEnemyAutoAggro; }
+void ALD44GameMode::SetLastCheckpointEnemyAutoAggro(TMap<FString, float> value){ LastCheckpointEnemyAutoAggro = value; }
 TMap<FString, TSubclassOf<AEnemyRobot>> ALD44GameMode::GetLastCheckpointEnemyType(){ return LastCheckpointEnemyType; }
 void ALD44GameMode::SetLastCheckpointEnemyType(TMap<FString, TSubclassOf<AEnemyRobot>> value){ LastCheckpointEnemyType = value; }
 TMap<EUpgradeType, int32> ALD44GameMode::GetLastCheckpointPlayerUpgrades(){ return LastCheckpointPlayerUpgrades; }
@@ -42,6 +46,10 @@ TSubclassOf<ALD44Character> ALD44GameMode::GetLastCheckpointPlayerSubclass(){ re
 void ALD44GameMode::SetLastCheckpointPlayerSubclass(TSubclassOf<ALD44Character> value){ LastCheckpointPlayerSubclass = value; }
 TArray<class UHighScoresRow*> ALD44GameMode::GetHighScoresRows(){ return HighScoresRows; }
 void ALD44GameMode::SetHighScoresRows(TArray<class UHighScoresRow*> value){ HighScoresRows = value; }
+float ALD44GameMode::GetAutoCheckpointTime(){ return AutoCheckpointTime; }
+void ALD44GameMode::SetAutoCheckpointTime(float value){ AutoCheckpointTime = value; }
+float ALD44GameMode::GetAutoCheckpointCharge(){ return AutoCheckpointCharge; }
+void ALD44GameMode::SetAutoCheckpointCharge(float value){ AutoCheckpointCharge = value; }
 
 #include "LD44.h"
 #include "GameFramework/GameModeBase.h"

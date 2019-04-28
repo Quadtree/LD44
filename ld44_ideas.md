@@ -81,6 +81,7 @@ Note that it will NOT reset the level timer, so try not to die.
 ### TODO
 - Level 2 auto-checkpoints
 - Fix auto aggro + checkpoints
+- Some kind of crosshair
 - Player gun graphics
 - Correct player HUD
 - Level transitions

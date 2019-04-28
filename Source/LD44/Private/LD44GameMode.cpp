@@ -19,6 +19,8 @@ prop(bool PlayerHasWon)
 
 prop(TMap<FString, FVector> LastCheckpointEnemyLocations)
 prop(TMap<FString, float> LastCheckpointEnemyHealth)
+prop(TMap<FString, float> LastCheckpointEnemyAggro)
+prop(TMap<FString, float> LastCheckpointEnemyAutoAggro)
 prop(TMap<FString, TSubclassOf<AEnemyRobot>> LastCheckpointEnemyType)
 
 prop(TMap<EUpgradeType, int32> LastCheckpointPlayerUpgrades)
@@ -29,6 +31,9 @@ prop(FRotator LastCheckpointPlayerControlRotation)
 prop(TSubclassOf<ALD44Character> LastCheckpointPlayerSubclass)
 
 prop(TArray<class UHighScoresRow*> HighScoresRows)
+
+prop(float AutoCheckpointTime)
+prop(float AutoCheckpointCharge)
 
 fun::ALD44GameMode()
 {
@@ -165,12 +170,15 @@ void fun::Checkpoint()
 		{
 			LastCheckpointEnemyLocations.Add(i->GetName(), i->GetActorLocation());
 			LastCheckpointEnemyHealth.Add(i->GetName(), i->GetHealth());
+			LastCheckpointEnemyAggro.Add(i->GetName(), i->GetAggro());
+			LastCheckpointEnemyAutoAggro.Add(i->GetName(), i->GetAutoAggroTime());
 			LastCheckpointEnemyType.Add(i->GetName(), i->GetClass());
 		}
 
 		LastCheckpointTime = LevelTime;
 	}
 	
+	AutoCheckpointCharge = 0;
 }
 
 void fun::RestoreCheckpoint()
@@ -229,12 +237,16 @@ void fun::RestoreCheckpoint()
 		{
 			en->SpawnDefaultController();
 			en->SetHealth(LastCheckpointEnemyHealth[name.Key]);
+			en->SetAggro(LastCheckpointEnemyAggro[name.Key]);
+			en->SetAutoAggroTime(LastCheckpointEnemyAutoAggro[name.Key]);
 		}
 		else
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Enemy failed to spawn during checkpoint reload"));
 		}
 	}
+
+	AutoCheckpointCharge = 0;
 }
 
 void fun::Tick(float deltaTime)
@@ -271,5 +283,14 @@ void fun::Tick(float deltaTime)
 	if (!LastCheckpointPlayerSubclass)
 	{
 		Checkpoint();
+	}
+
+	if (AutoCheckpointTime > 0)
+	{
+		AutoCheckpointCharge += deltaTime;
+		if (AutoCheckpointCharge > AutoCheckpointTime)
+		{
+			Checkpoint();
+		}
 	}
 }

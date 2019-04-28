@@ -41,6 +41,12 @@ private:
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetLastCheckpointEnemyHealth, BlueprintSetter=SetLastCheckpointEnemyHealth)
 	TMap<FString, float> LastCheckpointEnemyHealth;
 
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetLastCheckpointEnemyAggro, BlueprintSetter=SetLastCheckpointEnemyAggro)
+	TMap<FString, float> LastCheckpointEnemyAggro;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetLastCheckpointEnemyAutoAggro, BlueprintSetter=SetLastCheckpointEnemyAutoAggro)
+	TMap<FString, float> LastCheckpointEnemyAutoAggro;
+
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetLastCheckpointEnemyType, BlueprintSetter=SetLastCheckpointEnemyType)
 	TMap<FString, TSubclassOf<AEnemyRobot>> LastCheckpointEnemyType;
 
@@ -64,6 +70,12 @@ private:
 
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetHighScoresRows, BlueprintSetter=SetHighScoresRows)
 	TArray<class UHighScoresRow*> HighScoresRows;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetAutoCheckpointTime, BlueprintSetter=SetAutoCheckpointTime)
+	float AutoCheckpointTime;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetAutoCheckpointCharge, BlueprintSetter=SetAutoCheckpointCharge)
+	float AutoCheckpointCharge;
 
 public:
 	ALD44GameMode();
@@ -133,6 +145,18 @@ public:
 	void SetLastCheckpointEnemyHealth(TMap<FString, float> value);
 
 	UFUNCTION(BlueprintGetter, BlueprintPure)
+	TMap<FString, float> GetLastCheckpointEnemyAggro();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetLastCheckpointEnemyAggro(TMap<FString, float> value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	TMap<FString, float> GetLastCheckpointEnemyAutoAggro();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetLastCheckpointEnemyAutoAggro(TMap<FString, float> value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
 	TMap<FString, TSubclassOf<AEnemyRobot>>  GetLastCheckpointEnemyType();
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
@@ -179,5 +203,17 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetHighScoresRows(TArray<class UHighScoresRow*> value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetAutoCheckpointTime();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetAutoCheckpointTime(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	float GetAutoCheckpointCharge();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetAutoCheckpointCharge(float value);
 
 };
