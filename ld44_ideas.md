@@ -98,3 +98,4 @@ Note that it will NOT reset the level timer, so try not to die.
 Fix bouncing projectiles issue
 fix graphics in level 3
 Fix force field in level 3
+Fix unwinnable issue in level 2
