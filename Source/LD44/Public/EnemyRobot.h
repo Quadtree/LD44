@@ -48,6 +48,9 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void DestroyedByDamage();
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void MeleeHit();
+
 	void Tick(float deltaTime) override;
 
 	float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, class AActor* DamageCauser) override;

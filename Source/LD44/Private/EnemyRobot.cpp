@@ -21,6 +21,7 @@ prop(int32 SalvageQuantity)
 prop(float AutoAggroTime)
 
 blueprintEvent(DestroyedByDamage)
+blueprintEvent(MeleeHit)
 
 void fun::Tick(float deltaTime)
 {
@@ -167,6 +168,7 @@ void fun::Tick(float deltaTime)
 				AttackCharge = 0;
 
 				player->TakeDamage(AttackDamage, FDamageEvent(), GetController(), this);
+				MeleeHit();
 			}
 		}
 	}
