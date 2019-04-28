@@ -50,6 +50,12 @@ float ALD44GameMode::GetAutoCheckpointTime(){ return AutoCheckpointTime; }
 void ALD44GameMode::SetAutoCheckpointTime(float value){ AutoCheckpointTime = value; }
 float ALD44GameMode::GetAutoCheckpointCharge(){ return AutoCheckpointCharge; }
 void ALD44GameMode::SetAutoCheckpointCharge(float value){ AutoCheckpointCharge = value; }
+FText ALD44GameMode::GetOpeningText(){ return OpeningText; }
+void ALD44GameMode::SetOpeningText(FText value){ OpeningText = value; }
+FText ALD44GameMode::GetWinningText(){ return WinningText; }
+void ALD44GameMode::SetWinningText(FText value){ WinningText = value; }
+FString ALD44GameMode::GetNextLevel(){ return NextLevel; }
+void ALD44GameMode::SetNextLevel(FString value){ NextLevel = value; }
 
 #include "LD44.h"
 #include "GameFramework/GameModeBase.h"
@@ -60,6 +66,7 @@ void ALD44GameMode::SetAutoCheckpointCharge(float value){ AutoCheckpointCharge =
 #include "Public/UpgradeType.h"
 #include "Public/LD44Character.h"
 #include "Public/HighScoresRow.h"
+#include "Internationalization/Text.h"
 #include "Public/LD44GameMode.h"
 #include "UObject/ConstructorHelpers.h"
 #include "GameFramework/Pawn.h"

@@ -4,8 +4,14 @@
 #include "GameFramework/GameModeBase.h"
 #include "UObject/NoExportTypes.h"
 #include "UObject/NoExportTypes.h"
+#include "Internationalization/Text.h"
+#include "Internationalization/Text.h"
+#include "Containers/UnrealString.h"
 #include "UObject/NoExportTypes.h"
 #include "UObject/NoExportTypes.h"
+#include "Internationalization/Text.h"
+#include "Internationalization/Text.h"
+#include "Containers/UnrealString.h"
 #include "LD44.h"
 #include "Public/UpgradeType.h"
 #include "Templates/SharedPointerInternals.h"
@@ -76,6 +82,15 @@ private:
 
 	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetAutoCheckpointCharge, BlueprintSetter=SetAutoCheckpointCharge)
 	float AutoCheckpointCharge;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetOpeningText, BlueprintSetter=SetOpeningText)
+	FText OpeningText;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetWinningText, BlueprintSetter=SetWinningText)
+	FText WinningText;
+
+	UPROPERTY(SaveGame, EditAnywhere, BlueprintGetter=GetNextLevel, BlueprintSetter=SetNextLevel)
+	FString NextLevel;
 
 public:
 	ALD44GameMode();
@@ -215,5 +230,23 @@ public:
 
 	UFUNCTION(BlueprintSetter, BlueprintCallable)
 	void SetAutoCheckpointCharge(float value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	FText GetOpeningText();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetOpeningText(FText value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	FText GetWinningText();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetWinningText(FText value);
+
+	UFUNCTION(BlueprintGetter, BlueprintPure)
+	FString GetNextLevel();
+
+	UFUNCTION(BlueprintSetter, BlueprintCallable)
+	void SetNextLevel(FString value);
 
 };

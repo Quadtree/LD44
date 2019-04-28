@@ -35,6 +35,10 @@ prop(TArray<class UHighScoresRow*> HighScoresRows)
 prop(float AutoCheckpointTime)
 prop(float AutoCheckpointCharge)
 
+prop(FText OpeningText)
+prop(FText WinningText)
+prop(FString NextLevel)
+
 fun::ALD44GameMode()
 {
 	// set default pawn class to our Blueprinted character
