@@ -87,5 +87,11 @@ Note that it will NOT reset the level timer, so try not to die.
 - Main menu
 
 ### TODO
-- Sound effects
+- Enemy death sound
+- Bolt fire sound
+- Missile fire sound
+- Missile explosion sound
+- Collect salvage sound
+- Upgrade sound
+- Upgrade denied sound
 - Music
