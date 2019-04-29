@@ -108,7 +108,8 @@ void fun::PlayerWins()
 			auto req = FHttpModule::Get().CreateRequest();
 
 			req->OnProcessRequestComplete().BindUObject(this, &fun::HighScoresReceived);
-			req->SetURL("https://sigma.quadtree.info/dyn/lighttpd/ld/ld44/highscores.php");
+			//req->SetURL("https://sigma.quadtree.info/dyn/lighttpd/ld/ld44/highscores.php");
+			req->SetURL("https://quadtree.info/ld/ld44/highscores.php");
 			req->SetVerb("POST");
 			req->SetHeader("Content-Type", "application/x-www-form-urlencoded");
 			req->SetContentAsString(
